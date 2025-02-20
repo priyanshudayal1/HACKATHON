@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { Loader } from 'lucide-react';
 
 const LostAndFound = () => {
     const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [newItem, setNewItem] = useState({
         user_id: '', // Set this to the logged-in user's ID
         location: '',
@@ -17,10 +20,17 @@ const LostAndFound = () => {
 
     const fetchItems = async () => {
         try {
+            setLoading(true);
+            setError(null);
             const response = await axios.get('/api/lost-found-items/');
-            setItems(response.data);
+            // Ensure response.data is treated as an array
+            setItems(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error('Error fetching items:', error);
+            setError('Failed to fetch items. Please try again later.');
+            setItems([]);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -76,6 +86,22 @@ const LostAndFound = () => {
                 return 'bg-white/10';
         }
     };
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-96">
+                <Loader className="w-8 h-8 animate-spin text-indigo-500" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="p-6 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20">
+                <p>{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div className="p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 shadow-lg shadow-indigo-500/20 transition-all duration-300">

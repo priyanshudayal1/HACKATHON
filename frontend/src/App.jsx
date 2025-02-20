@@ -8,6 +8,7 @@ import UserDashboardLayout from "./components/UserDashboardLayout";
 import BudgetTrip from "./pages/User/Features/BudgetTrip";
 import LostAndFound from "./pages/User/Features/LostAndFound";
 import TransportGuide from "./pages/User/Features/TransportGuide";
+import TravelInsuranceHelper from "./pages/User/Features/TravelInsuranceHelper";
 import CrowdSourcedSafety from "./pages/User/Features/CrowdSourcedSafety";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="notifications" element={<div>Notifications Page</div>} />
         <Route path="settings" element={<div>Settings Page</div>} />
         <Route path="lost-found" element={<LostAndFound />} />
+        <Route path="insurance" element={<TravelInsuranceHelper />} />
         <Route path="safety-map" element={<CrowdSourcedSafety />} />
       </Route>
 

@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "leaflet": "^1.9.4",
-    "react-hot-toast": "^2.5.2"
-  }
-}

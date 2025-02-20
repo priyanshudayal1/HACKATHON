@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
 import {
-  AlertTriangle,
-  MapPin,
   Map,
-  Cloud,
   Calculator,
   Bus,
-  FileCheck,
-  Languages,
   Luggage,
+  MessageCircle,
+  User,
+  Bell,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,18 +14,18 @@ const FeatureCard = ({ icon: Icon, title, description, index }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileHover={{ scale: 1.02 }}
       animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
       transition={{ delay: index * 0.1 }}
-      className="p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
+      className="p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 cursor-pointer hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
     >
-      <div className="flex items-start gap-4">
-        <div className="p-2 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
+      <div className="flex items-center gap-4">
+        <div className="p-3 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
           <Icon className="w-6 h-6 text-indigo-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-          <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+          <h3 className="text-lg font-semibold text-white">{title}</h3>
+          <p className="text-gray-400 text-sm">{description}</p>
         </div>
       </div>
     </motion.div>
@@ -36,56 +34,64 @@ const FeatureCard = ({ icon: Icon, title, description, index }) => {
 
 const features = [
   {
-    icon: AlertTriangle,
-    title: "Real-Time Safety Alerts",
-    description:
-      "AI-powered risk assessment using social media sentiment analysis and government alerts",
-  },
-  {
-    icon: MapPin,
-    title: "Smart SOS & Emergency Locator",
-    description:
-      "One-tap SOS system with live location sharing and nearest safe zones",
+    icon: Calculator,
+    title: "Budget Planner",
+    description: "AI-based budget optimizer",
+    onClick: () => {},
   },
   {
     icon: Map,
-    title: "Crowdsourced Safety Map",
-    description: "Real-time community-based safety insights for travelers",
+    title: "AI Travel Suggestions",
+    description: "Personalized travel recommendations",
+    onClick: () => {},
   },
   {
-    icon: Cloud,
-    title: "Weather & Disaster Alerts",
-    description: "AI-driven natural disaster alerts with evacuation routes",
-  },
-  {
-    icon: Calculator,
-    title: "Budget Travel Planner",
-    description: "AI-based budget optimizer for affordable travel",
+    icon: Luggage,
+    title: "Lost & Found Items",
+    description: "Report and find lost items",
+    onClick: () => {},
   },
   {
     icon: Bus,
     title: "Transport Guide",
-    description: "Real-time local transport fare estimator and trip planning",
-  },
-  // {
-  //   icon: WalletCards,
-  //   title: "Expense Splitter",
-  //   description: "Automated cost-splitting with UPI integration",
-  // },
-  {
-    icon: FileCheck,
-    title: "Digital Permit Guide",
-    description: "AI-based permit requirements and application assistance",
+    description: "Real-time transport fare estimator",
+    onClick: () => {},
   },
   {
-    icon: Languages,
+    icon: Map,
+    title: "Smart SOS & Emergency Locator",
+    description: "Quick emergency assistance",
+    onClick: () => {},
+  },
+  {
+    icon: Map,
+    title: "Crowdsourced Safety Map",
+    description: "Real-time community safety updates",
+    onClick: () => {},
+  },
+  {
+    icon: MessageCircle,
+    title: "Weather & Disaster Alerts",
+    description: "Real-time weather updates",
+    onClick: () => {},
+  },
+  {
+    icon: User,
     title: "Smart Translator",
-    description: "Offline AI-powered language translation",
+    description: "Instant language translation",
+    onClick: () => {},
   },
   {
     icon: Luggage,
-    title: "Luggage Recovery",
-    description: "Community-powered tracking system for lost belongings",
+    title: "Travel Insurance Helper",
+    description: "Get assistance with travel insurance",
+    onClick: () => {},
+  },
+  {
+    icon: Bell,
+    title: "Statewise Guidelines",
+    description: "Travel guidelines for different states",
+    onClick: () => {},
   },
 ];
 
@@ -144,7 +150,9 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <button className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50">
+          <button onClick={
+            () => navigate("/dashboard")
+          } className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50">
             Get Started
           </button>
         </motion.div>

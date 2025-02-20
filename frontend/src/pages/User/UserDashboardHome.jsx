@@ -9,6 +9,7 @@ import {
   MessageCircle,
   Calculator,
   Bus,
+  Luggage,
 } from "lucide-react";
 
 const DashboardCard = ({ icon: Icon, title, description, onClick }) => {
@@ -43,7 +44,7 @@ const UserDashboardHome = () => {
       onClick: () => navigate("/dashboard/budget"),
     },
     {
-      icon: Bell, // Updated icon for Lost & Found Items
+      icon: Luggage, // Updated icon for Lost & Found Items
       title: "Lost & Found Items",
       description: "Report and find lost items",
       onClick: () => navigate("/dashboard/lost-found"),

@@ -78,7 +78,7 @@ export default function Register() {
         <div className="space-y-6 w-full max-w-lg">
           <div>
             <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-2">
-              TravelGuard AI
+              Yatra Karo
             </h1>
             <h2 className="text-4xl font-bold text-white mb-8">
               Join Our Community
@@ -98,7 +98,7 @@ export default function Register() {
           className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 w-full max-w-md border border-white/10"
         >
           <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-2 text-center lg:hidden">
-            TravelGuard AI
+            Yatra Karo
           </h1>
           <h2 className="text-3xl font-bold text-center text-white mb-8">
             Register

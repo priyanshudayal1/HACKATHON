@@ -6,14 +6,8 @@ import {
   Cloud,
   Calculator,
   Bus,
-  WalletCards,
-  Wifi,
   FileCheck,
-  Shield,
   Languages,
-  Leaf,
-  UtensilsCrossed,
-  Plane,
   Luggage,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -105,7 +99,7 @@ const Home = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-white">TravelSafe</div>
+            <div className="text-xl font-bold text-white">Yatra Karo</div>
             <div className="flex gap-4">
               <button
                 onClick={() => navigate("/login")}

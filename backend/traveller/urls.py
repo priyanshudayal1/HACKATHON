@@ -10,5 +10,6 @@ urlpatterns = [
     path('api/update-lost-found-item/', views.update_lost_found_item, name='update_lost_found_item'),
     path('api/delete-lost-found-items/', views.delete_lost_found_item, name='delete_lost_found_item'),
     path('api/transport-routes/', views.get_transport_routes, name='get_transport_routes'),
+    path('travel-suggestions/', views.travel_suggestions, name='travel_suggestions'),
 ]
 

@@ -80,12 +80,6 @@ const UserDashboardHome = () => {
       onClick: () => navigate("/dashboard/weather"),
     },
     {
-      icon: Settings,
-      title: "Digital Permit Guide",
-      description: "Guided instructions for digital permits",
-      onClick: () => navigate("/dashboard/digital-permit"),
-    },
-    {
       icon: User,
       title: "Smart Translator",
       description: "Instant language translation",

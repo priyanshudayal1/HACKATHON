@@ -15,6 +15,7 @@ class LostAndFound(models.Model):
     item_description = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     report_date = models.DateTimeField(auto_now_add=True)
+    date_found = models.DateTimeField(null=True, blank=True)  # New field
 
     class Meta:
         db_table = 'LostAndFound'

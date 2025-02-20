@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import api from '../lib/api';
 
-export const useLostFound = create((set, get) => ({
+export const useLostFound = create((set) => ({
     items: [],
     loading: false,
     error: null,
@@ -16,8 +16,8 @@ export const useLostFound = create((set, get) => ({
             } else {
                 throw new Error(data.message);
             }
-        } catch (error) {
-            console.error('Error fetching items:', error);
+        } catch (err) {
+            console.error('Error fetching items:', err);
             set({ 
                 error: 'Failed to fetch items. Please try again later.',
                 items: [],
@@ -28,7 +28,10 @@ export const useLostFound = create((set, get) => ({
 
     addItem: async (newItem) => {
         try {
-            const response = await api.post('/api/add-lost-found-item/', newItem);
+            const response = await api.post('/api/add-lost-found-item/', {
+                ...newItem,
+                date_found: newItem.status === 'Found' ? new Date().toISOString() : null
+            });
             if (response.data.status === 'success') {
                 set(state => ({ items: [...state.items, response.data.data] }));
                 toast.success('Item added successfully!');

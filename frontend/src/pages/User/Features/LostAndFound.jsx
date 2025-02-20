@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Loader,
   PackageSearch,
@@ -9,20 +9,83 @@ import {
   FileText,
   Calendar,
   AlertCircle,
+  ShieldCheck,
+  X,
+  Clock,
 } from "lucide-react";
 import { useLogin } from "../../../store/useLogin";
 import { useLostFound } from "../../../store/useLostFound";
 
+const ConfirmationDialog = ({ isOpen, onClose, onConfirm, itemDescription }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+          >
+            <div className="p-6 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 rounded-lg bg-indigo-500/20 ring-1 ring-indigo-500/50">
+                  <ShieldCheck className="w-6 h-6 text-indigo-400" />
+                </div>
+                <h2 className="text-xl font-semibold text-white">Confirm Recovery</h2>
+                <button 
+                  onClick={onClose}
+                  className="ml-auto p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5 text-gray-400" />
+                </button>
+              </div>
+              <p className="text-gray-300 mb-6">
+                Are you sure this item has been recovered?
+                <br />
+                <span className="text-indigo-400 font-medium">{itemDescription}</span>
+              </p>
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 rounded-lg hover:bg-white/10 text-gray-300 transition-all duration-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onConfirm}
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-300 flex items-center gap-2"
+                >
+                  <Check className="w-4 h-4" />
+                  Confirm Recovery
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const LostAndFound = () => {
   const { user } = useLogin();
-  const { items, loading, error, fetchItems, addItem, updateItemStatus } =
-    useLostFound();
+  const { items, loading, error, fetchItems, addItem, updateItemStatus } = useLostFound();
   const [newItem, setNewItem] = useState({
     user_id: user?.id || "",
     location: "",
     item_description: "",
     status: "Lost",
+    date_found: null,
   });
+  const [confirmationDialog, setConfirmationDialog] = useState({ isOpen: false, itemId: null, description: "" });
 
   useEffect(() => {
     fetchItems();
@@ -41,13 +104,21 @@ const LostAndFound = () => {
           location: "",
           item_description: "",
           status: "Lost",
+          date_found: null,
         });
       }
     }
   };
 
-  const handleStatusChange = async (reportId) => {
-    await updateItemStatus(reportId, "Recovered");
+  const handleStatusChange = async (reportId, description) => {
+    setConfirmationDialog({ isOpen: true, itemId: reportId, description });
+  };
+
+  const handleConfirmRecovery = async () => {
+    if (confirmationDialog.itemId) {
+      await updateItemStatus(confirmationDialog.itemId, "Recovered");
+      setConfirmationDialog({ isOpen: false, itemId: null, description: "" });
+    }
   };
 
   const handleChange = (e) => {
@@ -66,6 +137,17 @@ const LostAndFound = () => {
       default:
         return "bg-white/10 border-white/30";
     }
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return null;
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   if (loading) {
@@ -180,18 +262,31 @@ const LostAndFound = () => {
                     <div className="flex justify-between items-start">
                       <div className="space-y-2">
                         <p className="font-medium">{item.item_description}</p>
-                        <div className="flex items-center gap-2 text-sm text-gray-400">
-                          <MapPin className="w-4 h-4" />
-                          {item.location}
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-400">
-                          <Calendar className="w-4 h-4" />
-                          {item.report_date}
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <MapPin className="w-4 h-4" />
+                            {item.location}
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <Calendar className="w-4 h-4" />
+                            Reported: {formatDate(item.report_date)}
+                          </div>
+                          {item.date_found && (
+                            <div className="flex items-center gap-2 text-sm text-gray-400">
+                              <Clock className="w-4 h-4" />
+                              Found: {formatDate(item.date_found)}
+                            </div>
+                          )}
+                          <div className="flex items-center gap-2 text-sm font-medium">
+                            <div className={`px-2 py-1 rounded-md ${getItemClass(item.status)}`}>
+                              {item.status}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       {item.status === "Lost" && (
                         <button
-                          onClick={() => handleStatusChange(item.report_id)}
+                          onClick={() => handleStatusChange(item.report_id, item.item_description)}
                           className="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-all duration-300 flex items-center gap-1"
                         >
                           <Check className="w-4 h-4" />
@@ -206,6 +301,12 @@ const LostAndFound = () => {
           </motion.div>
         </div>
       </motion.div>
+      <ConfirmationDialog
+        isOpen={confirmationDialog.isOpen}
+        onClose={() => setConfirmationDialog({ isOpen: false, itemId: null, description: "" })}
+        onConfirm={handleConfirmRecovery}
+        itemDescription={confirmationDialog.description}
+      />
     </div>
   );
 };

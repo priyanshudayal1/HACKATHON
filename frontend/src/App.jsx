@@ -8,6 +8,12 @@ import UserDashboardLayout from "./components/UserDashboardLayout";
 import BudgetTrip from "./pages/User/Features/BudgetTrip";
 import LostAndFound from "./pages/User/Features/LostAndFound";
 import TransportGuide from "./pages/User/Features/TransportGuide";
+import TravelInsuranceHelper from "./pages/User/Features/TravelInsuranceHelper";
+import StateWiseGuidelines from "./pages/User/Features/StateWiseGuidelines";
+import TravelSuggestion from "./pages/User/Features/TravelSuggestion";
+import CrowdSourcedSafety from "./pages/User/Features/CrowdSourcedSafety";
+import SmartTranslation from "./pages/User/Features/SmartTranslation";
+import AlertsSystems from "./pages/User/Features/AlertsSystems";
 
 const App = () => {
   return (
@@ -28,6 +34,12 @@ const App = () => {
         <Route path="notifications" element={<div>Notifications Page</div>} />
         <Route path="settings" element={<div>Settings Page</div>} />
         <Route path="lost-found" element={<LostAndFound />} />
+        <Route path="insurance" element={<TravelInsuranceHelper />} />
+        <Route path="guidelines" element={<StateWiseGuidelines />} />
+        <Route path="travel-suggestions" element={<TravelSuggestion />} />
+        <Route path="safety-map" element={<CrowdSourcedSafety />} />
+        <Route path="smart-translator" element={<SmartTranslation />} />
+        <Route path="weather" element={<AlertsSystems />} />
       </Route>
 
       <Route path="*" element={<div>404 Not Found</div>} />

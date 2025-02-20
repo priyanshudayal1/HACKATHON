@@ -10,3 +10,12 @@ export const getTransportRoutes = async (data) => {
     throw error.response.data;
   }
 };
+
+export const getDestinationSuggestions = async (preferences) => {
+  try {
+    const response = await axios.post(`${API_URL}/travel-suggestions/`, preferences);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Failed to fetch suggestions');
+  }
+};

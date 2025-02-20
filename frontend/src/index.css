@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Leaflet Map Styles */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.leaflet-control-container .leaflet-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.leaflet-control-container .leaflet-control a {
+  color: white !important;
+}
+
+.leaflet-tile-container img {
+  filter: grayscale(0.5) hue-rotate(180deg);
+}

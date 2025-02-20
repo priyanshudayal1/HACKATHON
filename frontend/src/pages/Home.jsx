@@ -6,14 +6,8 @@ import {
   Cloud,
   Calculator,
   Bus,
-  WalletCards,
-  Wifi,
   FileCheck,
-  Shield,
   Languages,
-  Leaf,
-  UtensilsCrossed,
-  Plane,
   Luggage,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -73,25 +67,15 @@ const features = [
     title: "Transport Guide",
     description: "Real-time local transport fare estimator and trip planning",
   },
-  {
-    icon: WalletCards,
-    title: "Expense Splitter",
-    description: "Automated cost-splitting with UPI integration",
-  },
-  {
-    icon: Wifi,
-    title: "Offline Assistant",
-    description: "Access maps and emergency contacts without internet",
-  },
+  // {
+  //   icon: WalletCards,
+  //   title: "Expense Splitter",
+  //   description: "Automated cost-splitting with UPI integration",
+  // },
   {
     icon: FileCheck,
     title: "Digital Permit Guide",
     description: "AI-based permit requirements and application assistance",
-  },
-  {
-    icon: Shield,
-    title: "Solo Traveler Mode",
-    description: "Safe Travel AI companion for secure navigation",
   },
   {
     icon: Languages,
@@ -99,24 +83,9 @@ const features = [
     description: "Offline AI-powered language translation",
   },
   {
-    icon: Leaf,
-    title: "Eco-Travel Guide",
-    description: "Track and reduce your travel carbon footprint",
-  },
-  {
-    icon: UtensilsCrossed,
-    title: "Food Safety Ratings",
-    description: "AI-based food safety and hygiene tracking",
-  },
-  {
-    icon: Plane,
-    title: "AI Trip Planner",
-    description: "Automated booking for transport and accommodation",
-  },
-  {
     icon: Luggage,
     title: "Luggage Recovery",
-    description: "AI-powered tracking system for lost belongings",
+    description: "Community-powered tracking system for lost belongings",
   },
 ];
 
@@ -130,7 +99,7 @@ const Home = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-white">TravelSafe</div>
+            <div className="text-xl font-bold text-white">Yatra Karo</div>
             <div className="flex gap-4">
               <button
                 onClick={() => navigate("/login")}

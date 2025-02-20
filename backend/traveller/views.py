@@ -5,6 +5,7 @@ import json
 from .models import User, LostAndFound
 from django.core.exceptions import ValidationError
 from .utils import callGPT
+import feedparser
 
 @csrf_exempt
 def register_user(request):
@@ -54,7 +55,8 @@ def login_user(request):
                         'id': user.user_id,
                         'name': user.name,
                         'email': user.email,
-                        'user_type': user.user_type
+                        'user_type': user.user_type,
+                        'phone': user.phone
                     }
                 })
             else:
@@ -110,9 +112,16 @@ def generate_trip(request):
 
 @csrf_exempt
 def get_transport_routes(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
-            data = json.loads(request.body)
+            source = request.GET.get('source')
+            destination = request.GET.get('destination')
+            
+            if not source or not destination:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Source and destination are required'
+                }, status=400)
             
             system_prompt = """You are a local transport expert. Generate different route options between two locations.
             Return exactly 3 routes in a JSON array format where each object represents a route with the following structure:
@@ -125,7 +134,7 @@ def get_transport_routes(request):
                 }
             ]"""
             
-            user_prompt = f"""Suggest different routes from {data['source']} to {data['destination']} considering:
+            user_prompt = f"""Suggest different routes from {source} to {destination} considering:
             - Various transport options (bus, train, metro, etc.)
             - Cost comparison
             - Duration of travel
@@ -145,12 +154,67 @@ def get_transport_routes(request):
             
         except Exception as e:
             return JsonResponse({
-                'status': 'success',
-                'routes': []  # Return empty array on error
-            })
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
 
+@csrf_exempt
+def travel_suggestions(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            system_prompt = """You are a travel expert. Generate destination suggestions based on the user's interests and requirements.
+            Format the response as a JSON array where each object represents a destination with the following structure:
+            {
+                "name": "destination name",
+                "description": "brief description",
+                "highlights": "key attractions or features",
+                "costRange": "estimated cost range",
+                "bestTime": "best time to visit",
+                "activities": ["activity1", "activity2", "activity3"]
+            }"""
+            
+            user_prompt = f"""Suggest destinations matching these criteria:
+            - Interests: {data.get('interests', 'any')}
+            - Budget: {data.get('budget', 'flexible')}
+            - Duration: {data.get('duration', 'any')} days
+            - Number of travelers: {data.get('travelers', '1')}
+            
+            Provide 3-5 destinations that best match these preferences. Include popular activities 
+            and highlights for each destination."""
+            
+            response = callGPT(system_prompt, user_prompt)
+            suggestions = json.loads(response) if isinstance(response, str) else response
+            
+            # Validate response format
+            if not isinstance(suggestions, list):
+                raise ValueError("Invalid response format from GPT")
+                
+            # Ensure connection is not broken before sending response
+            try:
+                return JsonResponse({
+                    'status': 'success',
+                    'suggestions': suggestions
+                })
+            except BrokenPipeError:
+                # Log the error but don't raise it to client
+                print("[ERROR] Broken pipe while sending response")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Connection error'
+                }, status=500)
+                
+        except Exception as e:
+            print(f"[ERROR] Travel suggestions error: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Failed to generate suggestions'
+            }, status=400)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
 
 @csrf_exempt
 def add_lost_found_item(request):
@@ -159,22 +223,34 @@ def add_lost_found_item(request):
             data = json.loads(request.body)
             user = User.objects.get(user_id=data['user_id'])
             lost_found_item = LostAndFound(
-                user_id=user,
+                user=user,
                 location=data['location'],
                 item_description=data['item_description'],
-                status=data['status']
+                status=data['status'],
+                date_found=data.get('date_found', None)
             )
             lost_found_item.save()
-            return JsonResponse({
+            # Return the created item data
+            response_data = {
                 'status': 'success',
-                'message': 'Lost and found item added successfully'
-            })
+                'data': {
+                    'report_id': lost_found_item.report_id,
+                    'user_id': lost_found_item.user.user_id,
+                    'location': lost_found_item.location,
+                    'item_description': lost_found_item.item_description,
+                    'status': lost_found_item.status,
+                    'report_date': lost_found_item.report_date,
+                    'date_found': lost_found_item.date_found
+                }
+            }
+            return JsonResponse(response_data)
         except User.DoesNotExist:
             return JsonResponse({
                 'status': 'error',
                 'message': 'User not found'
             }, status=404)
         except Exception as e:
+            print(e)
             return JsonResponse({
                 'status': 'error',
                 'message': str(e)
@@ -190,10 +266,20 @@ def update_lost_found_item(request):
             lost_found_item.location = data.get('location', lost_found_item.location)
             lost_found_item.item_description = data.get('item_description', lost_found_item.item_description)
             lost_found_item.status = data.get('status', lost_found_item.status)
+            lost_found_item.date_found = data.get('date_found', lost_found_item.date_found)
             lost_found_item.save()
             return JsonResponse({
                 'status': 'success',
-                'message': 'Lost and found item updated successfully'
+                'message': 'Lost and found item updated successfully',
+                'data': {
+                    'report_id': lost_found_item.report_id,
+                    'user_id': lost_found_item.user.user_id,
+                    'location': lost_found_item.location,
+                    'item_description': lost_found_item.item_description,
+                    'status': lost_found_item.status,
+                    'report_date': lost_found_item.report_date,
+                    'date_found': lost_found_item.date_found
+                }
             })
         except LostAndFound.DoesNotExist:
             return JsonResponse({
@@ -228,4 +314,152 @@ def delete_lost_found_item(request):
                 'status': 'error',
                 'message': str(e)
             }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def get_all_lost_found_items(request):
+    if request.method == 'GET':
+        try:
+            items = LostAndFound.objects.all()
+            items_list = [{
+                'report_id': item.report_id,
+                'user_id': item.user.user_id,
+                'location': item.location,
+                'item_description': item.item_description,
+                'status': item.status,
+                'report_date': item.report_date,
+                'date_found': item.date_found
+            } for item in items]
+            return JsonResponse({
+                'status': 'success',
+                'items': items_list
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def translate_text(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            required_fields = ['sourceText', 'sourceLang', 'targetLang']
+            
+            if not all(field in data for field in required_fields):
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Missing required fields'
+                }, status=400)
+
+            system_prompt = """You are a professional translator. 
+            Translate the given text accurately while maintaining the context and meaning."""
+            
+            user_prompt = f"""Translate this text:
+            "{data['sourceText']}"
+            From: {data['sourceLang']}
+            To: {data['targetLang']}
+            
+            Provide only the translated text without any additional context or explanations."""
+            
+            translated_text = callGPT(system_prompt, user_prompt)
+            
+            return JsonResponse({
+                'status': 'success',
+                'translatedText': translated_text.strip(),
+                'sourceLang': data['sourceLang'],
+                'targetLang': data['targetLang']
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Invalid method'
+    }, status=405)
+
+@csrf_exempt
+def get_location_alerts(request):
+    if request.method == 'GET':
+        try:
+            location = request.GET.get('location', '')
+            if not location:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Location is required'
+                }, status=400)
+
+            try:
+                # Fetch news from Google News
+                url = f"https://news.google.com/rss/search?q={location.strip()}+India&hl=en-IN&gl=IN&ceid=IN:en"
+                feed = feedparser.parse(url)
+                
+                news_entries = []
+                for entry in feed.entries[:5]:
+                    try:
+                        news_entries.append({
+                            'title': entry.title,
+                            'link': entry.link,
+                            'published': getattr(entry, 'published', 'No date available')
+                        })
+                    except AttributeError:
+                        continue
+
+                # Get GPT analysis
+                system_prompt = """You are a travel safety expert. Analyze the news and provide safety recommendations. 
+                Return response in valid JSON format with fields: analysis (string), alerts (array), precautions (array)."""
+                
+                news_titles = "\n".join([entry['title'] for entry in news_entries])
+                user_prompt = f"""Based on these recent news headlines from {location}:
+                {news_titles}
+                
+                Provide:
+                1. A brief safety analysis
+                2. Key alerts or warnings
+                3. Recommended precautions"""
+
+                try:
+                    gpt_response = callGPT(system_prompt, user_prompt)
+                    # Clean up the response to ensure valid JSON
+                    cleaned_response = gpt_response.strip()
+                    if cleaned_response.startswith('```json'):
+                        cleaned_response = cleaned_response[7:-3]  # Remove ```json and ``` markers
+                    
+                    analysis_data = json.loads(cleaned_response)
+                except (json.JSONDecodeError, AttributeError) as e:
+                    print(f"[ERROR] GPT response parsing failed: {str(e)}")
+                    # Fallback analysis
+                    analysis_data = {
+                        "analysis": f"Analysis currently unavailable for {location}.",
+                        "alerts": ["No specific alerts at this time."],
+                        "precautions": ["Stay updated with local news."]
+                    }
+
+                return JsonResponse({
+                    'status': 'success',
+                    'location': location,
+                    'news': news_entries,
+                    'analysis': analysis_data
+                })
+
+            except Exception as inner_e:
+                print(f"[ERROR] Inner processing error: {str(inner_e)}")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Failed to process location data'
+                }, status=400)
+
+        except Exception as e:
+            print(f"[ERROR] Alert system error: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Failed to fetch alerts'
+            }, status=400)
+
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)

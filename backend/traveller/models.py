@@ -10,11 +10,12 @@ class LostAndFound(models.Model):
     ]
     
     report_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('traveller.User', on_delete=models.CASCADE,null=True,blank=True)  # Changed from 'auth.User' to 'traveller.User'
     location = models.CharField(max_length=255)
     item_description = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     report_date = models.DateTimeField(auto_now_add=True)
+    date_found = models.DateTimeField(null=True, blank=True)  # New field
 
     class Meta:
         db_table = 'LostAndFound'

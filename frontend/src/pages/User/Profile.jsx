@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { useLogin } from "../../store/useLogin";
-import { Mail, Phone, MapPin, Calendar } from "lucide-react";
+import { Mail, Phone, MapPin, Calendar, User } from "lucide-react";
 
 const Profile = () => {
   const { user } = useLogin();
+
+  console.log(user);
 
   return (
     <motion.div
@@ -22,10 +24,12 @@ const Profile = () => {
               {user?.name?.[0]?.toUpperCase() || "U"}
             </span>
           </motion.div>
-          
+
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-white mb-4">{user?.name || "User Name"}</h1>
-            
+            <h1 className="text-3xl font-bold text-white mb-4">
+              {user?.name || "User Name"}
+            </h1>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-gray-300">
@@ -37,12 +41,17 @@ const Profile = () => {
                   <span>{user?.phone || "Not provided"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
-                  <MapPin className="w-5 h-5" />
-                  <span>{user?.location || "Not provided"}</span>
+                  <User className="w-5 h-5" />
+                  <span>{user?.user_type || "Not provided"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <Calendar className="w-5 h-5" />
-                  <span>Joined {new Date(user?.createdAt || Date.now()).toLocaleDateString()}</span>
+                  <span>
+                    Joined{" "}
+                    {new Date(
+                      user?.createdAt || Date.now()
+                    ).toLocaleDateString()}
+                  </span>
                 </div>
               </div>
             </div>

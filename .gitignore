@@ -1,2 +1,9 @@
-
+__pycache__/
+node_modules/
+dist/
+.vscode/
+.idea/
+*.log
 package-lock.json
+pycache/
+backend\backend\__pycache__

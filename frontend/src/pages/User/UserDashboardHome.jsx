@@ -3,14 +3,88 @@ import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../store/useLogin";
 import {
   User,
-  Settings,
   Map,
   Bell,
   MessageCircle,
   Calculator,
   Bus,
   Luggage,
+  AlertTriangle,
 } from "lucide-react";
+import { useState } from "react";
+
+const ErrorModal = ({ isOpen, onClose, message }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="relative bg-gray-900 border border-white/10 p-6 rounded-xl max-w-md w-full mx-4"
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <AlertTriangle className="w-6 h-6 text-red-500" />
+          <h3 className="text-xl font-semibold text-white">Error</h3>
+        </div>
+        <p className="text-gray-300 mb-6">{message}</p>
+        <div className="flex justify-end">
+          <button 
+            onClick={onClose}
+            className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+const ConfirmModal = ({ isOpen, onClose, onConfirm, isLoading }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      ></div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="relative bg-gray-900 border border-white/10 p-6 rounded-xl max-w-md w-full mx-4"
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <AlertTriangle className="w-6 h-6 text-red-500" />
+          <h3 className="text-xl font-semibold text-white">
+            Confirm SOS Alert
+          </h3>
+        </div>
+        <p className="text-gray-300 mb-6">
+          Are you sure you want to send an SOS alert? This will notify all your
+          emergency contacts with your current location.
+        </p>
+        <div className="flex gap-3 justify-end">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            disabled={isLoading}
+            className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors disabled:opacity-50"
+          >
+            {isLoading ? "Sending..." : "Send SOS Alert"}
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
 
 const DashboardCard = ({ icon: Icon, title, description, onClick }) => {
   return (
@@ -34,7 +108,70 @@ const DashboardCard = ({ icon: Icon, title, description, onClick }) => {
 
 const UserDashboardHome = () => {
   const navigate = useNavigate();
-  const { user } = useLogin();
+  const { user, sendSOSAlert } = useLogin();
+  const [showSOSModal, setShowSOSModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSendingAlert, setIsSendingAlert] = useState(false);
+
+  const handleSendSOS = async () => {
+    try {
+      setIsSendingAlert(true);
+
+      // Check if geolocation is available
+      if (!navigator.geolocation) {
+        throw new Error('Geolocation is not supported by your browser');
+      }
+
+      // Get current location with timeout
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          resolve,
+          (error) => {
+            switch(error.code) {
+              case error.PERMISSION_DENIED:
+                reject(new Error('Please allow location access to send SOS alerts'));
+                break;
+              case error.POSITION_UNAVAILABLE:
+                reject(new Error('Location information is unavailable'));
+                break;
+              case error.TIMEOUT:
+                reject(new Error('Location request timed out'));
+                break;
+              default:
+                reject(new Error('Failed to get your location'));
+            }
+          },
+          { 
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+          }
+        );
+      });
+
+      const coordinates = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+
+      const { success, error } = await sendSOSAlert(user.id, coordinates);
+      
+      if (!success) {
+        throw new Error(error);
+      }
+    } catch (error) {
+      setErrorMessage(error.message || 'An unexpected error occurred');
+      setShowErrorModal(true);
+    } finally {
+      setIsSendingAlert(false);
+      setShowSOSModal(false);
+    }
+  };
+
+  const handleOpenSOSModal = () => {
+    setShowSOSModal(true);
+  };
 
   const dashboardItems = [
     {
@@ -65,7 +202,7 @@ const UserDashboardHome = () => {
       icon: Map,
       title: "Smart SOS & Emergency Locator",
       description: "Quick emergency assistance",
-      onClick: () => navigate("/dashboard/emergency"),
+      onClick: handleOpenSOSModal,
     },
     {
       icon: Map,
@@ -95,9 +232,8 @@ const UserDashboardHome = () => {
       icon: Bell,
       title: "Statewise Guidelines",
       description: "Travel guidelines for different states",
-      onClick: () => navigate("/dashboard/guidelines")
-    }
-
+      onClick: () => navigate("/dashboard/guidelines"),
+    },
   ];
 
   return (
@@ -122,6 +258,19 @@ const UserDashboardHome = () => {
           </motion.div>
         ))}
       </div>
+
+      <ConfirmModal
+        isOpen={showSOSModal}
+        onClose={() => setShowSOSModal(false)}
+        onConfirm={handleSendSOS}
+        isLoading={isSendingAlert}
+      />
+
+      <ErrorModal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        message={errorMessage}
+      />
     </>
   );
 };

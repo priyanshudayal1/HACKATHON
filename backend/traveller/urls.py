@@ -13,5 +13,8 @@ urlpatterns = [
     path('travel-suggestions/', views.travel_suggestions, name='travel_suggestions'),
     path('api/translate/', views.translate_text, name='translate_text'),
     path('api/alerts/location/', views.get_location_alerts, name='get_location_alerts'),
+    path('api/add_loved_one/<int:user_id>/', views.add_loved_one, name='add_loved_one'),
+    path('api/loved_ones/<int:user_id>/', views.get_loved_ones, name='get_loved_ones'),
+    path('api/send-sos-alert/<int:user_id>/', views.send_sos_alert, name='send_sos_alert'),
 ]
 

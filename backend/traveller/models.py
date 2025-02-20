@@ -41,6 +41,7 @@ class User(models.Model):
     password_hash = models.CharField(max_length=255)
     user_type = models.CharField(max_length=10, choices=USER_TYPES)
     created_at = models.DateTimeField(auto_now_add=True)
+    loved_ones = models.JSONField(default=list) 
 
     def __str__(self):
         return self.name

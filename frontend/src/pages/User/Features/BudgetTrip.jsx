@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useBudgetStore } from "../../../store/useBudget";
 import { toast } from "react-hot-toast";
+import LoadingOverlay from "../../../components/LoadingOverlay";
 
 const BudgetTrip = () => {
   const [formData, setFormData] = useState({
@@ -154,27 +155,7 @@ const BudgetTrip = () => {
 
         <AnimatePresence>
           {(loading || isThinking) && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
-            >
-              <motion.div
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.9 }}
-                className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl flex flex-col items-center gap-4"
-              >
-                <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-white text-lg font-medium">
-                  AI is Processing
-                </p>
-                <p className="text-indigo-300 text-sm text-center max-w-xs">
-                  Creating a personalized itinerary based on your preferences...
-                </p>
-              </motion.div>
-            </motion.div>
+            <LoadingOverlay message="AI is crafting your perfect trip..." />
           )}
         </AnimatePresence>
 

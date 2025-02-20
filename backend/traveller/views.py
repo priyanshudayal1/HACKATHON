@@ -1,11 +1,40 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.conf import settings
 import json
+import requests
 from .models import User, LostAndFound
 from django.core.exceptions import ValidationError
 from .utils import callGPT
 import feedparser
+
+def get_location(coordinates):
+    try:
+        latitude, longitude = coordinates
+        api_key = '5c94ad9aa6f745fc8033a3dbfbaeb93e'
+        url = f'https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={api_key}'
+        
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        
+        if data['results']:
+            components = data['results'][0]['components']
+            address = data['results'][0]['formatted']
+            nearby = components.get('neighbourhood') or components.get('suburb') or components.get('city_district') or ''
+            return {
+                'address': address,
+                'nearby': nearby,
+                'city': components.get('city', ''),
+                'state': components.get('state', ''),
+                'country': components.get('country', '')
+            }
+        return None
+    except Exception as e:
+        print(f"Error getting location: {str(e)}")
+        return None
 
 @csrf_exempt
 def register_user(request):
@@ -56,7 +85,8 @@ def login_user(request):
                         'name': user.name,
                         'email': user.email,
                         'user_type': user.user_type,
-                        'phone': user.phone
+                        'phone': user.phone,
+                        'created_at': user.created_at
                     }
                 })
             else:
@@ -463,3 +493,173 @@ def get_location_alerts(request):
             }, status=400)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def add_loved_one(request, user_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = User.objects.get(user_id=user_id)
+            
+            # Initialize loved_ones if it doesn't exist
+            if not user.loved_ones:
+                user.loved_ones = []
+            
+            # Add new loved one
+            new_loved_one = {
+                'name': data['name'],
+                'email': data['email']
+            }
+            user.loved_ones.append(new_loved_one)
+            user.save()
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Loved one added successfully',
+                'loved_ones': user.loved_ones
+            })
+            
+        except User.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'User not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def get_loved_ones(request, user_id):
+    if request.method == 'GET':
+        try:
+            user = User.objects.get(user_id=user_id)
+            return JsonResponse({
+                'status': 'success',
+                'loved_ones': user.loved_ones or []
+            })
+        except User.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'User not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def send_sos_alert(request, user_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = User.objects.get(user_id=user_id)
+            
+            if not user.loved_ones:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'No emergency contacts found. Please add emergency contacts first.'
+                }, status=400)
+
+            latitude = data.get('latitude')
+            longitude = data.get('longitude')
+            
+            if latitude is None or longitude is None:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Location coordinates are required'
+                }, status=400)
+
+            try:
+                location_info = get_location((latitude, longitude))
+                maps_link = f"https://www.google.com/maps?q={latitude},{longitude}"
+                
+                # Prepare email context
+                context = {
+                    'user_name': user.name,
+                    'user_phone': user.phone,
+                    'user_email': user.email,
+                    'maps_link': maps_link,
+                    'latitude': latitude,
+                    'longitude': longitude,
+                    'location_info': location_info
+                }
+
+                # Render HTML email content
+                html_message = render(request, 'email.html', context).content.decode('utf-8')
+                
+                subject = f"❗ EMERGENCY SOS Alert from {user.name}"
+                plain_message = f"""
+                EMERGENCY SOS ALERT!
+                {user.name} has triggered an emergency SOS alert.
+                Location: {location_info['address'] if location_info else f'{latitude}, {longitude}'}
+                Maps Link: {maps_link}
+                Contact: {user.phone} | {user.email}
+                PLEASE RESPOND IMMEDIATELY!
+                """
+                
+                success_count = 0
+                failed_emails = []
+                
+                for loved_one in user.loved_ones:
+                    try:
+                        send_mail(
+                            subject,
+                            plain_message,  # Plain text version
+                            settings.DEFAULT_FROM_EMAIL,
+                            [loved_one['email']],
+                            fail_silently=False,
+                            html_message=html_message  # HTML version
+                        )
+                        success_count += 1
+                    except Exception as e:
+                        failed_emails.append(loved_one['email'])
+                        print(f"Failed to send email to {loved_one['email']}: {str(e)}")
+                
+                if success_count == 0:
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': 'Failed to send alerts to any emergency contacts'
+                    }, status=500)
+                
+                return JsonResponse({
+                    'status': 'success',
+                    'message': f'SOS alerts sent successfully to {success_count} contacts',
+                    'total_contacts': len(user.loved_ones),
+                    'successful_sends': success_count,
+                    'failed_sends': len(failed_emails)
+                })
+                
+            except Exception as e:
+                print(f"Error in send_sos_alert location handling: {str(e)}")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Failed to process location information'
+                }, status=500)
+            
+        except User.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'User not found'
+            }, status=404)
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid JSON data'
+            }, status=400)
+        except Exception as e:
+            print(f"Unexpected error in send_sos_alert: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': f'An unexpected error occurred: {str(e)}'
+            }, status=500)
+    
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Invalid method'
+    }, status=405)

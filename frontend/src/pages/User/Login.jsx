@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Mail, Lock, Shield, UserCheck, Clock } from 'lucide-react'
-import { useNavigate, Link } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
-import { useLogin } from '../../store/useLogin'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Lock, Shield, UserCheck, Clock } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { useLogin } from "../../store/useLogin";
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <motion.div
@@ -41,31 +41,35 @@ const loginFeatures = [
 ];
 
 export default function Login() {
-  const navigate = useNavigate()
-  const login = useLogin(state => state.login)
+  const navigate = useNavigate();
+  const login = useLogin((state) => state.login);
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const success = await login(formData)
+    e.preventDefault();
+    const success = await login(formData);
     if (success) {
-      setTimeout(() => navigate('/'), 1000)
+      setTimeout(() => navigate("/"), 1000);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 flex">
       <Toaster position="top-center" reverseOrder={false} />
-      
+
       {/* Features Section */}
       <div className="hidden lg:flex w-1/2 p-12 items-center">
         <div className="space-y-6 w-full max-w-lg">
           <div>
-            <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-2">TravelGuard AI</h1>
-            <h2 className="text-4xl font-bold text-white mb-8">Welcome Back!</h2>
+            <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-2">
+              TravelGuard AI
+            </h1>
+            <h2 className="text-4xl font-bold text-white mb-8">
+              Welcome Back!
+            </h2>
           </div>
           {loginFeatures.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
@@ -80,8 +84,12 @@ export default function Login() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 w-full max-w-md border border-white/10"
         >
-          <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-2 text-center lg:hidden">TravelGuard AI</h1>
-          <h2 className="text-3xl font-bold text-center text-white mb-8">Login</h2>
+          <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-2 text-center lg:hidden">
+            TravelGuard AI
+          </h1>
+          <h2 className="text-3xl font-bold text-center text-white mb-8">
+            Login
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <motion.div whileHover={{ scale: 1.02 }} className="relative">
               <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
@@ -90,7 +98,9 @@ export default function Login() {
                 placeholder="Email"
                 className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-white/60"
                 value={formData.email}
-                onChange={e => setFormData({...formData, email: e.target.value})}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
               />
             </motion.div>
@@ -102,7 +112,9 @@ export default function Login() {
                 placeholder="Password"
                 className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-white/60"
                 value={formData.password}
-                onChange={e => setFormData({...formData, password: e.target.value})}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 required
               />
             </motion.div>
@@ -117,8 +129,11 @@ export default function Login() {
             </motion.button>
 
             <p className="text-center text-gray-300">
-              Don't have an account?{' '}
-              <Link to="/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
+              Don&apos;t have an account?
+              <Link
+                to="/register"
+                className="text-indigo-400 hover:text-indigo-300 font-medium"
+              >
                 Register here
               </Link>
             </p>
@@ -126,5 +141,5 @@ export default function Login() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

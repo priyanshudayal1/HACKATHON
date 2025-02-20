@@ -157,7 +157,10 @@ def add_lost_found_item(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            print(data)
             user = User.objects.get(user_id=data['user_id'])
+            print("GOT HERe", user)
+            print(type(user))
             lost_found_item = LostAndFound(
                 user_id=user,
                 location=data['location'],
@@ -175,6 +178,7 @@ def add_lost_found_item(request):
                 'message': 'User not found'
             }, status=404)
         except Exception as e:
+            print(e)
             return JsonResponse({
                 'status': 'error',
                 'message': str(e)
@@ -223,6 +227,29 @@ def delete_lost_found_item(request):
                 'status': 'error',
                 'message': 'Lost and found item not found'
             }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def get_all_lost_found_items(request):
+    if request.method == 'GET':
+        try:
+            items = LostAndFound.objects.all()
+            items_list = [{
+                'report_id': item.report_id,
+                'user_id': item.user_id.user_id,
+                'location': item.location,
+                'item_description': item.item_description,
+                'status': item.status
+            } for item in items]
+            return JsonResponse({
+                'status': 'success',
+                'items': items_list
+            })
         except Exception as e:
             return JsonResponse({
                 'status': 'error',

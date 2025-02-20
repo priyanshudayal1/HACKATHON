@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { Loader } from 'lucide-react';
+import { useLogin } from '../../../store/useLogin';
+import { useLostFound } from '../../../store/useLostFound';
 
 const LostAndFound = () => {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { user } = useLogin();
+    const { items, loading, error, fetchItems, addItem, updateItemStatus } = useLostFound();
     const [newItem, setNewItem] = useState({
-        user_id: '', // Set this to the logged-in user's ID
+        user_id: user?.id || '',
         location: '',
         item_description: '',
         status: 'Lost',
@@ -16,62 +16,33 @@ const LostAndFound = () => {
 
     useEffect(() => {
         fetchItems();
-    }, []);
-
-    const fetchItems = async () => {
-        try {
-            setLoading(true);
-            setError(null);
-            const response = await axios.get('/api/lost-found-items/');
-            // Ensure response.data is treated as an array
-            setItems(Array.isArray(response.data) ? response.data : []);
-        } catch (error) {
-            console.error('Error fetching items:', error);
-            setError('Failed to fetch items. Please try again later.');
-            setItems([]);
-        } finally {
-            setLoading(false);
-        }
-    };
+    }, [fetchItems]);
 
     const handleAddItem = async () => {
         if (newItem.item_description.trim()) {
-            try {
-                const response = await axios.post('/api/add-lost-found-item/', newItem);
-                setItems([...items, response.data]);
+            const itemWithUserId = {
+                ...newItem,
+                user_id: user?.id
+            };
+            const success = await addItem(itemWithUserId);
+            if (success) {
                 setNewItem({
-                    user_id: '', // Set this to the logged-in user's ID
+                    user_id: user?.id,
                     location: '',
                     item_description: '',
                     status: 'Lost',
                 });
-            } catch (error) {
-                console.error('Error adding item:', error);
             }
         }
+    };
+
+    const handleStatusChange = async (reportId) => {
+        await updateItemStatus(reportId, 'Recovered');
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNewItem({ ...newItem, [name]: value });
-    };
-
-    const handleStatusChange = async (index) => {
-        const item = items[index];
-        if (item.status === 'Lost') {
-            try {
-                await axios.post('/api/update-lost-found-item/', {
-                    report_id: item.report_id,
-                    status: 'Recovered',
-                });
-                const updatedItems = items.map((item, i) =>
-                    i === index ? { ...item, status: 'Recovered' } : item
-                );
-                setItems(updatedItems);
-            } catch (error) {
-                console.error('Error updating item status:', error);
-            }
-        }
     };
 
     const getItemClass = (status) => {
@@ -163,7 +134,7 @@ const LostAndFound = () => {
                             <p><strong>Date:</strong> {item.report_date}</p>
                             {item.status === 'Lost' && (
                                 <button
-                                    onClick={() => handleStatusChange(index)}
+                                    onClick={() => handleStatusChange(item.report_id)}
                                     className="mt-2 p-2 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-all duration-300"
                                 >
                                     Mark as Recovered

@@ -35,13 +35,24 @@ const TravelSuggestion = () => {
     }
     
     setLoading(true);
-    try {
-      const response = await getDestinationSuggestions(formData);
-      setSuggestions(Array.isArray(response.suggestions) ? response.suggestions : []);
-      toast.success("Destinations found successfully!");
-    } catch (error) {
-      setSuggestions([]);
-      toast.error(error.message || "Failed to find destinations");
+    let retries = 3;
+  
+    while (retries > 0) {
+      try {
+        const response = await getDestinationSuggestions(formData);
+        setSuggestions(Array.isArray(response.suggestions) ? response.suggestions : []);
+        toast.success("Destinations found successfully!");
+        break;
+      } catch (error) {
+        retries--;
+        if (retries === 0) {
+          setSuggestions([]);
+          toast.error(error.message || "Failed to find destinations. Please try again.");
+        } else {
+          // Wait 1 second before retrying
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
     }
     setLoading(false);
   };

@@ -2,7 +2,6 @@ const getSuggestions = async (req, res) => {
   try {
     const { interests, budget, duration, travelers } = req.body;
 
-    // Example response structure - Replace with actual AI/database logic
     const suggestions = [
       {
         name: "Bali, Indonesia",
@@ -17,7 +16,32 @@ const getSuggestions = async (req, res) => {
           "Traditional dance shows"
         ]
       },
-      // Add more destination suggestions...
+      {
+        name: "Manali, India",
+        description: "Stunning mountain views and adventure activities",
+        highlights: "Mountains, Adventure, Nature",
+        costRange: "₹20,000 - ₹40,000",
+        bestTime: "March to June",
+        activities: [
+          "Paragliding",
+          "Trekking",
+          "River rafting",
+          "Visit Hadimba Temple"
+        ]
+      },
+      {
+        name: "Goa, India",
+        description: "Beach paradise with vibrant nightlife and Portuguese culture",
+        highlights: "Beaches, Nightlife, Water Sports",
+        costRange: "₹15,000 - ₹35,000",
+        bestTime: "November to February",
+        activities: [
+          "Beach hopping",
+          "Water sports",
+          "Casino visits",
+          "Church tours"
+        ]
+      }
     ];
 
     res.status(200).json({
@@ -27,7 +51,7 @@ const getSuggestions = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message || 'Internal server error'
     });
   }
 };

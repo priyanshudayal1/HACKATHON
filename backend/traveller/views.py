@@ -151,6 +151,61 @@ def get_transport_routes(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
 
+@csrf_exempt
+def travel_suggestions(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            system_prompt = """You are a travel expert. Generate destination suggestions based on the user's interests and requirements.
+            Format the response as a JSON array where each object represents a destination with the following structure:
+            {
+                "name": "destination name",
+                "description": "brief description",
+                "highlights": "key attractions or features",
+                "costRange": "estimated cost range",
+                "bestTime": "best time to visit",
+                "activities": ["activity1", "activity2", "activity3"]
+            }"""
+            
+            user_prompt = f"""Suggest destinations matching these criteria:
+            - Interests: {data.get('interests', 'any')}
+            - Budget: {data.get('budget', 'flexible')}
+            - Duration: {data.get('duration', 'any')} days
+            - Number of travelers: {data.get('travelers', '1')}
+            
+            Provide 3-5 destinations that best match these preferences. Include popular activities 
+            and highlights for each destination."""
+            
+            response = callGPT(system_prompt, user_prompt)
+            suggestions = json.loads(response) if isinstance(response, str) else response
+            
+            # Validate response format
+            if not isinstance(suggestions, list):
+                raise ValueError("Invalid response format from GPT")
+                
+            # Ensure connection is not broken before sending response
+            try:
+                return JsonResponse({
+                    'status': 'success',
+                    'suggestions': suggestions
+                })
+            except BrokenPipeError:
+                # Log the error but don't raise it to client
+                print("[ERROR] Broken pipe while sending response")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Connection error'
+                }, status=500)
+                
+        except Exception as e:
+            print(f"[ERROR] Travel suggestions error: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Failed to generate suggestions'
+            }, status=400)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
 
 @csrf_exempt
 def add_lost_found_item(request):

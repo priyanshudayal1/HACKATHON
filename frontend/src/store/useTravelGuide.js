@@ -13,21 +13,9 @@ export const getTransportRoutes = async (data) => {
 
 export const getDestinationSuggestions = async (preferences) => {
   try {
-    const response = await fetch('http://localhost:5000/api/v1/travel/suggestions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(preferences),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch suggestions');
-    }
-
-    const data = await response.json();
-    return data;
+    const response = await axios.post(`${API_URL}/travel-suggestions/`, preferences);
+    return response.data;
   } catch (error) {
-    throw new Error(error.message || 'Something went wrong');
+    throw new Error(error.response?.data?.message || 'Failed to fetch suggestions');
   }
 };

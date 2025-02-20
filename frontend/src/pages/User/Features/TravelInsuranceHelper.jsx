@@ -40,6 +40,36 @@ const insuranceData = [
         rating: 3.9,
         features: ["Medical Emergency", "Lost Baggage"],
         stars: 3
+    },
+    {
+        id: 4,
+        name: "Elite Explorer Plus",
+        provider: "TravelMax",
+        price: 79999,
+        coverage: 12000000,
+        rating: 4.9,
+        features: ["Medical Emergency", "Trip Cancellation", "Lost Baggage", "Adventure Sports", "24/7 Support", "Luxury Hotel Coverage", "Private Transport"],
+        stars: 5
+    },
+    {
+        id: 5,
+        name: "Student Traveler",
+        provider: "EduGuard",
+        price: 9999,
+        coverage: 1500000,
+        rating: 4.0,
+        features: ["Medical Emergency", "Lost Baggage", "Study Interruption Cover"],
+        stars: 4
+    },
+    {
+        id: 6,
+        name: "Family Shield Pro",
+        provider: "FamilySafe",
+        price: 34999,
+        coverage: 6000000,
+        rating: 4.5,
+        features: ["Medical Emergency", "Trip Cancellation", "Lost Baggage", "Child Care", "Family Visit"],
+        stars: 4
     }
 ];
 

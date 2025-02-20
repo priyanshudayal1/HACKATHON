@@ -37,36 +37,6 @@ const UserDashboardHome = () => {
 
   const dashboardItems = [
     {
-      icon: User,
-      title: "Profile",
-      description: "View and edit your profile",
-      onClick: () => navigate("/dashboard/profile"),
-    },
-    {
-      icon: Map,
-      title: "Maps",
-      description: "View travel maps",
-      onClick: () => navigate("/dashboard/maps"),
-    },
-    {
-      icon: Bell,
-      title: "Alerts",
-      description: "View your alerts and updates",
-      onClick: () => navigate("/dashboard/alerts"),
-    },
-    {
-      icon: MessageCircle,
-      title: "Messages",
-      description: "View your messages",
-      onClick: () => navigate("/dashboard/messages"),
-    },
-    {
-      icon: Settings,
-      title: "Settings",
-      description: "Manage your preferences",
-      onClick: () => navigate("/dashboard/settings"),
-    },
-    {
       icon: Calculator,
       title: "Budget Planner",
       description: "AI-based budget optimizer",
@@ -81,8 +51,38 @@ const UserDashboardHome = () => {
     {
       icon: Bus,
       title: "Transport Guide",
-      description: "Real-time local transport fare estimator and trip planning",
+      description: "Real-time transport fare estimator",
       onClick: () => navigate("/dashboard/transport"),
+    },
+    {
+      icon: Map,
+      title: "Smart SOS & Emergency Locator",
+      description: "Quick emergency assistance",
+      onClick: () => navigate("/dashboard/emergency"),
+    },
+    {
+      icon: Map,
+      title: "Crowdsourced Safety Map",
+      description: "Real-time community safety updates",
+      onClick: () => navigate("/dashboard/safety-map"),
+    },
+    {
+      icon: MessageCircle,
+      title: "Weather & Disaster Alerts",
+      description: "Real-time weather updates",
+      onClick: () => navigate("/dashboard/weather"),
+    },
+    {
+      icon: Settings,
+      title: "Digital Permit Guide",
+      description: "Guided instructions for digital permits",
+      onClick: () => navigate("/dashboard/digital-permit"),
+    },
+    {
+      icon: User, // Using the User icon for Smart Translator
+      title: "Smart Translator",
+      description: "Instant language translation",
+      onClick: () => navigate("/dashboard/smart-translator"),
     },
   ];
 

@@ -73,25 +73,15 @@ const features = [
     title: "Transport Guide",
     description: "Real-time local transport fare estimator and trip planning",
   },
-  {
-    icon: WalletCards,
-    title: "Expense Splitter",
-    description: "Automated cost-splitting with UPI integration",
-  },
-  {
-    icon: Wifi,
-    title: "Offline Assistant",
-    description: "Access maps and emergency contacts without internet",
-  },
+  // {
+  //   icon: WalletCards,
+  //   title: "Expense Splitter",
+  //   description: "Automated cost-splitting with UPI integration",
+  // },
   {
     icon: FileCheck,
     title: "Digital Permit Guide",
     description: "AI-based permit requirements and application assistance",
-  },
-  {
-    icon: Shield,
-    title: "Solo Traveler Mode",
-    description: "Safe Travel AI companion for secure navigation",
   },
   {
     icon: Languages,
@@ -99,24 +89,9 @@ const features = [
     description: "Offline AI-powered language translation",
   },
   {
-    icon: Leaf,
-    title: "Eco-Travel Guide",
-    description: "Track and reduce your travel carbon footprint",
-  },
-  {
-    icon: UtensilsCrossed,
-    title: "Food Safety Ratings",
-    description: "AI-based food safety and hygiene tracking",
-  },
-  {
-    icon: Plane,
-    title: "AI Trip Planner",
-    description: "Automated booking for transport and accommodation",
-  },
-  {
     icon: Luggage,
     title: "Luggage Recovery",
-    description: "AI-powered tracking system for lost belongings",
+    description: "Community-powered tracking system for lost belongings",
   },
 ];
 

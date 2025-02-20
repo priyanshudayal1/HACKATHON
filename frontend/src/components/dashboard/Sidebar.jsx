@@ -7,9 +7,6 @@ const Sidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, handleLogout }) => {
   const navItems = [
     { icon: Home, label: "Dashboard", path: "/dashboard" },
     { icon: User, label: "Profile", path: "/dashboard/profile" },
-    { icon: Map, label: "Maps", path: "/dashboard/maps" },
-    { icon: Bell, label: "Alerts", path: "/dashboard/alerts" },
-    { icon: MessageCircle, label: "Messages", path: "/dashboard/messages" },
     { icon: Settings, label: "Settings", path: "/dashboard/settings" },
   ];
 

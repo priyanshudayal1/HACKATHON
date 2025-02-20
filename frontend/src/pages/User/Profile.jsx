@@ -1,18 +1,137 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLogin } from "../../store/useLogin";
-import { Mail, Phone, Calendar, User, Plus, Heart, X, Shield, Edit } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Calendar,
+  User,
+  Plus,
+  Heart,
+  X,
+  Shield,
+  Edit,
+  Save,
+  Sparkles,
+  MapPin,
+  AlertCircle,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import api from "../../lib/api";
+import { toast } from "react-hot-toast";
+
+const EmergencyContactCard = ({ contact, onDelete }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    whileHover={{ scale: 1.02 }}
+    className="p-4 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 transition-all duration-300"
+  >
+    <div className="flex items-start justify-between">
+      <div className="flex items-center gap-3">
+        <div className="p-2 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
+          <Heart className="w-5 h-5 text-indigo-400" />
+        </div>
+        <div>
+          <h3 className="text-white font-medium">{contact.name}</h3>
+          <p className="text-gray-400 text-sm">{contact.email}</p>
+        </div>
+      </div>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => onDelete(contact)}
+        className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-red-400 transition-colors"
+      >
+        <X className="w-4 h-4" />
+      </motion.button>
+    </div>
+  </motion.div>
+);
+
+const AddContactModal = ({ isOpen, onClose, newContact, setNewContact, onAdd }) => (
+  <AnimatePresence>
+    {isOpen && (
+      <>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+          onClick={onClose}
+        />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+        >
+          <div className="p-6 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
+                  <Heart className="w-5 h-5 text-indigo-400" />
+                </div>
+                <h2 className="text-xl font-semibold text-white">Add Emergency Contact</h2>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={onClose}
+                className="p-2 hover:bg-white/10 rounded-lg text-gray-400 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </motion.button>
+            </div>
+
+            <div className="space-y-4">
+              <motion.div whileHover={{ scale: 1.02 }} className="relative group">
+                <User className="absolute left-3 top-3 text-gray-400 group-hover:text-indigo-400 transition-colors" />
+                <input
+                  type="text"
+                  placeholder="Contact Name"
+                  value={newContact.name}
+                  onChange={(e) => setNewContact({ ...newContact, name: e.target.value })}
+                  className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-white/60"
+                />
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} className="relative group">
+                <Mail className="absolute left-3 top-3 text-gray-400 group-hover:text-indigo-400 transition-colors" />
+                <input
+                  type="email"
+                  placeholder="Contact Email"
+                  value={newContact.email}
+                  onChange={(e) => setNewContact({ ...newContact, email: e.target.value })}
+                  className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-white/60"
+                />
+              </motion.div>
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={onAdd}
+                className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50"
+              >
+                <Plus className="w-4 h-4" />
+                Add Contact
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+      </>
+    )}
+  </AnimatePresence>
+);
 
 const Profile = () => {
   const { user, setUser } = useLogin();
   const [showModal, setShowModal] = useState(false);
   const [newLovedOne, setNewLovedOne] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedUser, setEditedUser] = useState(null);
 
-  console.log(user);
-
-  // Fetch loved ones when component mounts
   useEffect(() => {
     const fetchLovedOnes = async () => {
       if (!user?.id) return;
@@ -26,230 +145,216 @@ const Profile = () => {
         }
       } catch (err) {
         console.error("Error fetching loved ones:", err);
+        toast.error("Failed to fetch emergency contacts");
       } finally {
         setLoading(false);
       }
     };
 
     fetchLovedOnes();
-  }, []); // Added required dependencies
+  }, [user?.id, setUser]);
 
   const handleAddLovedOne = async () => {
+    if (!newLovedOne.name || !newLovedOne.email) {
+      toast.error("Please fill in all fields");
+      return;
+    }
     try {
-      const { data } = await api.post(
-        `/api/add_loved_one/${user.id}/`,
-        newLovedOne
-      );
+      const { data } = await api.post(`/api/add_loved_one/${user.id}/`, newLovedOne);
       if (data.status === "success") {
-        // Update the user state with new loved ones list
         setUser({
           ...user,
           loved_ones: [...(user.loved_ones || []), newLovedOne],
         });
-        setNewLovedOne({ name: "", email: "" }); // Reset form
-        setShowModal(false); // Close modal
+        setNewLovedOne({ name: "", email: "" });
+        setShowModal(false);
+        toast.success("Emergency contact added successfully");
       }
     } catch (err) {
       console.error("Error adding loved one:", err);
+      toast.error("Failed to add emergency contact");
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+  const handleDeleteLovedOne = async (contact) => {
+    try {
+      const { data } = await api.delete(`/api/loved_ones/${user.id}/${contact.id}/`);
+      if (data.status === "success") {
+        setUser({
+          ...user,
+          loved_ones: user.loved_ones.filter((l) => l.id !== contact.id),
+        });
+        toast.success("Emergency contact removed");
+      }
+    } catch (err) {
+      console.error("Error deleting loved one:", err);
+      toast.error("Failed to remove emergency contact");
+    }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
+  const handleEditProfile = () => {
+    if (isEditing) {
+      // Save changes
+      // TODO: Implement profile update API call
+      setIsEditing(false);
+    } else {
+      setEditedUser({ ...user });
+      setIsEditing(true);
+    }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="min-h-screen p-6 bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900"
-    >
+    <div className="max-w-6xl mx-auto space-y-8">
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="max-w-6xl mx-auto space-y-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center gap-3 mb-8"
       >
-        {/* Profile Header */}
-        <motion.div 
-          variants={itemVariants}
-          className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-xl hover:border-indigo-500/50 transition-all duration-300"
-        >
-          <div className="flex flex-col md:flex-row items-start gap-8">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="w-32 h-32 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg group transition-all duration-300"
-            >
-              <span className="text-5xl text-white font-bold group-hover:scale-110 transition-transform">
-                {user?.name?.[0]?.toUpperCase() || "U"}
-              </span>
-            </motion.div>
-
-            <div className="flex-1 space-y-6">
-              <div className="flex items-center justify-between">
-                <h1 className="text-4xl font-bold text-white">{user?.name || "User Name"}</h1>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 bg-indigo-600/80 hover:bg-indigo-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300 backdrop-blur-sm"
-                >
-                  <Edit className="w-4 h-4" /> Edit Profile
-                </motion.button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <motion.div variants={itemVariants} className="space-y-4">
-                  {[
-                    { icon: Mail, value: user?.email },
-                    { icon: Phone, value: user?.phone },
-                    { icon: User, value: user?.user_type },
-                    { icon: Calendar, value: user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    }) : 'Not provided' }
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-                      <div className="p-2 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
-                        <item.icon className="w-5 h-5 text-indigo-400" />
-                      </div>
-                      <span className="font-medium">{item.value || "Not provided"}</span>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Loved Ones Section */}
-        <motion.div
-          variants={itemVariants}
-          className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-xl hover:border-indigo-500/50 transition-all duration-300"
-        >
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <Heart className="w-6 h-6 text-pink-500" />
-              <h2 className="text-2xl font-bold text-white">Loved Ones</h2>
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowModal(true)}
-              className="px-4 py-2 bg-pink-600/80 hover:bg-pink-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300 backdrop-blur-sm"
-            >
-              <Plus className="w-4 h-4" /> Add Loved One
-            </motion.button>
-          </div>
-
-          {loading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-              <p className="text-gray-400">Loading loved ones...</p>
-            </div>
-          ) : user?.loved_ones?.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {user.loved_ones.map((person, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 hover:border-indigo-500/50 transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
-                      <Shield className="w-6 h-6 text-indigo-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-1">{person.name}</h3>
-                      <p className="text-gray-400">{person.email}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-white/5 backdrop-blur-lg border border-dashed border-white/10 rounded-xl">
-              <Heart className="w-12 h-12 text-indigo-400 mx-auto mb-4" />
-              <p className="text-gray-400">No loved ones added yet.</p>
-            </div>
-          )}
-        </motion.div>
+        <div className="p-2 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
+          <User className="w-6 h-6 text-indigo-400" />
+        </div>
+        <h1 className="text-3xl font-bold text-white">Your Profile</h1>
       </motion.div>
 
-      {/* Modal */}
-      {showModal && (
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Profile Information */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-6"
         >
-          <motion.div
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.9 }}
-            className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl border border-white/10 shadow-xl w-full max-w-md"
-          >
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                <Heart className="w-6 h-6 text-pink-500" /> Add Loved One
-              </h3>
+          <div className="p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 transition-all duration-300">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-white">Profile Information</h2>
               <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setShowModal(false)}
-                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleEditProfile}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50"
               >
-                <X className="w-5 h-5 text-gray-400 hover:text-white" />
+                {isEditing ? (
+                  <>
+                    <Save className="w-4 h-4" /> Save Changes
+                  </>
+                ) : (
+                  <>
+                    <Edit className="w-4 h-4" /> Edit Profile
+                  </>
+                )}
               </motion.button>
             </div>
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-indigo-300 mb-2">Name</label>
-                <input
-                  type="text"
-                  value={newLovedOne.name}
-                  onChange={(e) => setNewLovedOne({ ...newLovedOne, name: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
-                  placeholder="Enter name"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-indigo-300 mb-2">Email</label>
-                <input
-                  type="email"
-                  value={newLovedOne.email}
-                  onChange={(e) => setNewLovedOne({ ...newLovedOne, email: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
-                  placeholder="Enter email"
-                />
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleAddLovedOne}
-                className="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white rounded-xl px-6 py-3 font-medium transition-all duration-300 flex items-center justify-center gap-2"
+
+            <div className="flex items-center gap-6 mb-8">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg group transition-all duration-300"
               >
-                <Plus className="w-5 h-5" />
-                Add Loved One
-              </motion.button>
+                <span className="text-4xl text-white font-bold group-hover:scale-110 transition-transform">
+                  {user?.name?.[0]?.toUpperCase() || "U"}
+                </span>
+              </motion.div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-1">{user?.name}</h3>
+                <p className="text-gray-400">{user?.user_type}</p>
+              </div>
             </div>
-          </motion.div>
+
+            <div className="grid gap-4">
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-indigo-400" />
+                <div>
+                  <p className="text-sm text-gray-400">Email</p>
+                  <p className="text-white">{user?.email}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-indigo-400" />
+                <div>
+                  <p className="text-sm text-gray-400">Phone</p>
+                  <p className="text-white">{user?.phone || "Not provided"}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Calendar className="w-5 h-5 text-indigo-400" />
+                <div>
+                  <p className="text-sm text-gray-400">Member Since</p>
+                  <p className="text-white">
+                    {user?.date_joined
+                      ? new Date(user.date_joined).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      : "Unknown"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
-      )}
-    </motion.div>
+
+        {/* Emergency Contacts */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-6"
+        >
+          <div className="p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 transition-all duration-300">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-white">Emergency Contacts</h2>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowModal(true)}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50"
+              >
+                <Plus className="w-4 h-4" />
+                Add Contact
+              </motion.button>
+            </div>
+
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="w-8 h-8 border-2 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+              </div>
+            ) : user?.loved_ones?.length > 0 ? (
+              <div className="space-y-4">
+                <AnimatePresence>
+                  {user.loved_ones.map((contact, index) => (
+                    <EmergencyContactCard
+                      key={contact.id || index}
+                      contact={contact}
+                      onDelete={handleDeleteLovedOne}
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-12"
+              >
+                <AlertCircle className="w-12 h-12 text-indigo-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-2">No Emergency Contacts</h3>
+                <p className="text-gray-400">
+                  Add emergency contacts who will be notified in case of an SOS alert
+                </p>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+      </div>
+
+      <AddContactModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        newContact={newLovedOne}
+        setNewContact={setNewLovedOne}
+        onAdd={handleAddLovedOne}
+      />
+    </div>
   );
 };
 

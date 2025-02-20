@@ -10,6 +10,8 @@ import {
   Bus,
   Luggage,
   AlertTriangle,
+  AlertOctagon,
+  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -18,25 +20,29 @@ const ErrorModal = ({ isOpen, onClose, message }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
-      <motion.div 
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative bg-gray-900 border border-white/10 p-6 rounded-xl max-w-md w-full mx-4"
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="relative bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-xl max-w-md w-full mx-4 shadow-xl"
       >
         <div className="flex items-center gap-3 mb-4">
-          <AlertTriangle className="w-6 h-6 text-red-500" />
+          <div className="p-2 rounded-lg bg-red-500/10 ring-1 ring-red-500/50">
+            <AlertOctagon className="w-6 h-6 text-red-400" />
+          </div>
           <h3 className="text-xl font-semibold text-white">Error</h3>
         </div>
         <p className="text-gray-300 mb-6">{message}</p>
-        <div className="flex justify-end">
-          <button 
-            onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
-          >
-            Close
-          </button>
-        </div>
+        <button
+          onClick={onClose}
+          className="w-full py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300"
+        >
+          Close
+        </button>
       </motion.div>
     </div>
   );
@@ -50,35 +56,44 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm, isLoading }) => {
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
-      ></div>
+      />
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative bg-gray-900 border border-white/10 p-6 rounded-xl max-w-md w-full mx-4"
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="relative bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-xl max-w-md w-full mx-4 shadow-xl"
       >
         <div className="flex items-center gap-3 mb-4">
-          <AlertTriangle className="w-6 h-6 text-red-500" />
-          <h3 className="text-xl font-semibold text-white">
-            Confirm SOS Alert
-          </h3>
+          <div className="p-2 rounded-lg bg-red-500/10 ring-1 ring-red-500/50">
+            <AlertTriangle className="w-6 h-6 text-red-400" />
+          </div>
+          <h3 className="text-xl font-semibold text-white">Send SOS Alert</h3>
         </div>
         <p className="text-gray-300 mb-6">
-          Are you sure you want to send an SOS alert? This will notify all your
-          emergency contacts with your current location.
+          Are you sure you want to send an SOS alert? This will notify emergency
+          services and your emergency contacts with your current location.
         </p>
-        <div className="flex gap-3 justify-end">
+        <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
+            className="flex-1 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300"
+            disabled={isLoading}
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
             disabled={isLoading}
-            className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors disabled:opacity-50"
+            className="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
           >
-            {isLoading ? "Sending..." : "Send SOS Alert"}
+            {isLoading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Sending...</span>
+              </>
+            ) : (
+              <span>Send SOS</span>
+            )}
           </button>
         </div>
       </motion.div>
@@ -91,15 +106,20 @@ const DashboardCard = ({ icon: Icon, title, description, onClick }) => {
     <motion.div
       onClick={onClick}
       whileHover={{ scale: 1.02 }}
-      className="p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 cursor-pointer hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
+      whileTap={{ scale: 0.98 }}
+      className="group p-6 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-indigo-500/50 cursor-pointer transition-all duration-300 shadow-lg hover:shadow-indigo-500/10"
     >
       <div className="flex items-center gap-4">
-        <div className="p-3 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
-          <Icon className="w-6 h-6 text-indigo-400" />
+        <div className="p-3 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50 group-hover:bg-indigo-500/20 transition-all duration-300">
+          <Icon className="w-6 h-6 text-indigo-400 group-hover:text-indigo-300" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
-          <p className="text-gray-400 text-sm">{description}</p>
+          <h3 className="text-lg font-semibold text-white group-hover:text-indigo-200 transition-colors">
+            {title}
+          </h3>
+          <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+            {description}
+          </p>
         </div>
       </div>
     </motion.div>
@@ -111,41 +131,41 @@ const UserDashboardHome = () => {
   const { user, sendSOSAlert } = useLogin();
   const [showSOSModal, setShowSOSModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [isSendingAlert, setIsSendingAlert] = useState(false);
 
   const handleSendSOS = async () => {
     try {
       setIsSendingAlert(true);
 
-      // Check if geolocation is available
       if (!navigator.geolocation) {
-        throw new Error('Geolocation is not supported by your browser');
+        throw new Error("Geolocation is not supported by your browser");
       }
 
-      // Get current location with timeout
       const position = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
           resolve,
           (error) => {
-            switch(error.code) {
+            switch (error.code) {
               case error.PERMISSION_DENIED:
-                reject(new Error('Please allow location access to send SOS alerts'));
+                reject(
+                  new Error("Please allow location access to send SOS alerts")
+                );
                 break;
               case error.POSITION_UNAVAILABLE:
-                reject(new Error('Location information is unavailable'));
+                reject(new Error("Location information is unavailable"));
                 break;
               case error.TIMEOUT:
-                reject(new Error('Location request timed out'));
+                reject(new Error("Location request timed out"));
                 break;
               default:
-                reject(new Error('Failed to get your location'));
+                reject(new Error("Failed to get your location"));
             }
           },
-          { 
+          {
             enableHighAccuracy: true,
             timeout: 10000,
-            maximumAge: 0
+            maximumAge: 0,
           }
         );
       });
@@ -156,12 +176,12 @@ const UserDashboardHome = () => {
       };
 
       const { success, error } = await sendSOSAlert(user.id, coordinates);
-      
+
       if (!success) {
         throw new Error(error);
       }
     } catch (error) {
-      setErrorMessage(error.message || 'An unexpected error occurred');
+      setErrorMessage(error.message || "An unexpected error occurred");
       setShowErrorModal(true);
     } finally {
       setIsSendingAlert(false);
@@ -236,27 +256,49 @@ const UserDashboardHome = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
   return (
     <>
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold text-white mb-8"
-      >
-        Welcome back, {user?.name?.split(" ")[0] || "Traveler"}!
-      </motion.h1>
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-3 mb-8"
+        >
+          <div className="p-2 rounded-lg bg-indigo-500/10 ring-1 ring-indigo-500/50">
+            <Sparkles className="w-6 h-6 text-indigo-400" />
+          </div>
+          <h1 className="text-4xl font-bold text-white">
+            Welcome back, {user?.name?.split(" ")[0] || "Traveler"}!
+          </h1>
+        </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {dashboardItems.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <DashboardCard {...item} />
-          </motion.div>
-        ))}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {dashboardItems.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <DashboardCard {...item} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
 
       <ConfirmModal

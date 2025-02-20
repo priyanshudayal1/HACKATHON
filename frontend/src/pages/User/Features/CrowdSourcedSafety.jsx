@@ -12,6 +12,7 @@ import {
   Skull,
   HomeIcon,
   Pill,
+  Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";

@@ -142,10 +142,12 @@ def generate_trip(request):
 
 @csrf_exempt
 def get_transport_routes(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         try:
-            source = request.GET.get('source')
-            destination = request.GET.get('destination')
+            data = json.loads(request.body)
+            print('Data:', data)
+            source = data.get('source')
+            destination = data.get('destination')
             
             if not source or not destination:
                 return JsonResponse({
@@ -213,7 +215,7 @@ def travel_suggestions(request):
             - Duration: {data.get('duration', 'any')} days
             - Number of travelers: {data.get('travelers', '1')}
             
-            Provide 3-5 destinations that best match these preferences. Include popular activities 
+            Provide 3-5 destinations in India that best match these preferences. Include popular activities 
             and highlights for each destination."""
             
             response = callGPT(system_prompt, user_prompt)

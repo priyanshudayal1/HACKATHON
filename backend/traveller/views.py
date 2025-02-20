@@ -5,6 +5,7 @@ import json
 from .models import User, LostAndFound
 from django.core.exceptions import ValidationError
 from .utils import callGPT
+import feedparser
 
 @csrf_exempt
 def register_user(request):
@@ -382,3 +383,83 @@ def translate_text(request):
         'status': 'error',
         'message': 'Invalid method'
     }, status=405)
+
+@csrf_exempt
+def get_location_alerts(request):
+    if request.method == 'GET':
+        try:
+            location = request.GET.get('location', '')
+            if not location:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Location is required'
+                }, status=400)
+
+            try:
+                # Fetch news from Google News
+                url = f"https://news.google.com/rss/search?q={location.strip()}+India&hl=en-IN&gl=IN&ceid=IN:en"
+                feed = feedparser.parse(url)
+                
+                news_entries = []
+                for entry in feed.entries[:5]:
+                    try:
+                        news_entries.append({
+                            'title': entry.title,
+                            'link': entry.link,
+                            'published': getattr(entry, 'published', 'No date available')
+                        })
+                    except AttributeError:
+                        continue
+
+                # Get GPT analysis
+                system_prompt = """You are a travel safety expert. Analyze the news and provide safety recommendations. 
+                Return response in valid JSON format with fields: analysis (string), alerts (array), precautions (array)."""
+                
+                news_titles = "\n".join([entry['title'] for entry in news_entries])
+                user_prompt = f"""Based on these recent news headlines from {location}:
+                {news_titles}
+                
+                Provide:
+                1. A brief safety analysis
+                2. Key alerts or warnings
+                3. Recommended precautions"""
+
+                try:
+                    gpt_response = callGPT(system_prompt, user_prompt)
+                    # Clean up the response to ensure valid JSON
+                    cleaned_response = gpt_response.strip()
+                    if cleaned_response.startswith('```json'):
+                        cleaned_response = cleaned_response[7:-3]  # Remove ```json and ``` markers
+                    
+                    analysis_data = json.loads(cleaned_response)
+                except (json.JSONDecodeError, AttributeError) as e:
+                    print(f"[ERROR] GPT response parsing failed: {str(e)}")
+                    # Fallback analysis
+                    analysis_data = {
+                        "analysis": f"Analysis currently unavailable for {location}.",
+                        "alerts": ["No specific alerts at this time."],
+                        "precautions": ["Stay updated with local news."]
+                    }
+
+                return JsonResponse({
+                    'status': 'success',
+                    'location': location,
+                    'news': news_entries,
+                    'analysis': analysis_data
+                })
+
+            except Exception as inner_e:
+                print(f"[ERROR] Inner processing error: {str(inner_e)}")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Failed to process location data'
+                }, status=400)
+
+        except Exception as e:
+            print(f"[ERROR] Alert system error: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Failed to fetch alerts'
+            }, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)

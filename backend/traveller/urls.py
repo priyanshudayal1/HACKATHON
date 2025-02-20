@@ -12,5 +12,6 @@ urlpatterns = [
     path('api/transport-routes/', views.get_transport_routes, name='get_transport_routes'),
     path('travel-suggestions/', views.travel_suggestions, name='travel_suggestions'),
     path('api/translate/', views.translate_text, name='translate_text'),
+    path('api/alerts/location/', views.get_location_alerts, name='get_location_alerts'),
 ]
 

@@ -16,6 +16,7 @@ import {
   Plane,
   Luggage,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const FeatureCard = ({ icon: Icon, title, description, index }) => {
   return (
@@ -120,9 +121,33 @@ const features = [
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <div className="text-xl font-bold text-white">TravelSafe</div>
+            <div className="flex gap-4">
+              <button
+                onClick={() => navigate("/login")}
+                className="px-4 py-2 text-white hover:bg-white/10 rounded-lg transition-all duration-300"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-300"
+              >
+                Register
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
 
       {/* Hero Section */}
       <motion.div

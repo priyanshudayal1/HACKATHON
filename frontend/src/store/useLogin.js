@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import { persist } from "zustand/middleware";
+import api from '../lib/api';
 
 export const useLogin = create(
     persist(
@@ -10,12 +11,7 @@ export const useLogin = create(
             login: async (formData) => {
                 const loadingToast = toast.loading('Logging in...');
                 try {
-                    const res = await fetch('/api/login/', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
-                    });
-                    const data = await res.json();
+                    const { data } = await api.post('/api/login/', formData);
                     
                     if (data.status === 'success') {
                         toast.dismiss(loadingToast);
@@ -27,11 +23,14 @@ export const useLogin = create(
                     }
                 } catch (err) {
                     toast.dismiss(loadingToast);
-                    toast.error(err.message || 'Login failed. Please try again.');
+                    toast.error(err.response?.data?.message || err.message || 'Login failed. Please try again.');
                     return false;
                 }
             },
-            logout: () => set({ loggedIn: false, user: null }),
+            logout: () => {
+                toast.success('Logged out successfully');
+                set({ loggedIn: false, user: null });
+            },
             setUser: (userData) => set({ user: userData }),
         }),
         {

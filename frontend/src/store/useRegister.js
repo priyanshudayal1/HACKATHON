@@ -1,22 +1,17 @@
 import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import { useLogin } from "./useLogin";
+import api from '../lib/api';
 
 export const useRegister = create(() => ({
   register: async (formData) => {
     const loadingToast = toast.loading("Creating your account...");
     try {
-      const res = await fetch("/api/register/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      const { data } = await api.post("/api/register/", formData);
 
       if (data.status === "success") {
         toast.dismiss(loadingToast);
         toast.success("Registration successful! Redirecting...");
-        // Store user data if registration returns it
         if (data.user) {
           useLogin.getState().setUser(data.user);
         }
@@ -26,7 +21,7 @@ export const useRegister = create(() => ({
       }
     } catch (err) {
       toast.dismiss(loadingToast);
-      toast.error(err.message || "Registration failed. Please try again.");
+      toast.error(err.response?.data?.message || err.message || "Registration failed. Please try again.");
       return false;
     }
   },

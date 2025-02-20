@@ -52,7 +52,7 @@ export default function Login() {
     e.preventDefault();
     const success = await login(formData);
     if (success) {
-      setTimeout(() => navigate("/"), 1000);
+      navigate("/dashboard");
     }
   };
 

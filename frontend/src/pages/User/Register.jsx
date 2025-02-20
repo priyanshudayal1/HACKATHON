@@ -10,8 +10,9 @@ import {
   Users,
   Map,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 import { useRegister } from "../../store/useRegister";
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
@@ -168,7 +169,7 @@ export default function Register() {
                 size={20}
               />
               <select
-                className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white [&>option]:bg-white [&>option]:text-gray-900"
                 value={formData.user_type}
                 onChange={(e) =>
                   setFormData({ ...formData, user_type: e.target.value })

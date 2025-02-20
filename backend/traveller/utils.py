@@ -30,6 +30,7 @@ def callGPT(system_prompt, user_prompt):
         response = requests.post(ENDPOINT, headers=headers, json=payload)
         response.raise_for_status()
         response_data = response.json()
+        print('response_data:', response_data)
         return response_data.get("choices")[0].get("message").get("content")
     except requests.RequestException as e:
         error_message = f"Failed to make the request. Error: {e}"

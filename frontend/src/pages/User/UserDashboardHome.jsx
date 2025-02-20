@@ -44,7 +44,13 @@ const UserDashboardHome = () => {
       onClick: () => navigate("/dashboard/budget"),
     },
     {
-      icon: Luggage, // Updated icon for Lost & Found Items
+      icon: Map,
+      title: "AI Travel Suggestions",
+      description: "Personalized travel recommendations",
+      onClick: () => navigate("/dashboard/travel-suggestions"),
+    },
+    {
+      icon: Luggage,
       title: "Lost & Found Items",
       description: "Report and find lost items",
       onClick: () => navigate("/dashboard/lost-found"),
@@ -80,7 +86,7 @@ const UserDashboardHome = () => {
       onClick: () => navigate("/dashboard/digital-permit"),
     },
     {
-      icon: User, // Using the User icon for Smart Translator
+      icon: User,
       title: "Smart Translator",
       description: "Instant language translation",
       onClick: () => navigate("/dashboard/smart-translator"),
@@ -90,6 +96,12 @@ const UserDashboardHome = () => {
       title: "Travel Insurance Helper",
       description: "Get assistance with travel insurance",
       onClick: () => navigate("/dashboard/insurance"),
+    },
+    {
+      icon: Bell,
+      title: "Statewise Guidelines",
+      description: "Travel guidelines for different states",
+      onClick: () => navigate("/dashboard/guidelines")
     }
   ];
 

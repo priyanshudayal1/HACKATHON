@@ -8,6 +8,7 @@ import {
   Bell,
   MessageCircle,
   Calculator,
+  Bus,
 } from "lucide-react";
 
 const DashboardCard = ({ icon: Icon, title, description, onClick }) => {
@@ -68,8 +69,20 @@ const UserDashboardHome = () => {
     {
       icon: Calculator,
       title: "Budget Planner",
-      description: "AI-based budget optimizer for affordable travel",
+      description: "AI-based budget optimizer",
       onClick: () => navigate("/dashboard/budget"),
+    },
+    {
+      icon: Bell, // Updated icon for Lost & Found Items
+      title: "Lost & Found Items",
+      description: "Report and find lost items",
+      onClick: () => navigate("/dashboard/lost-found"),
+    },
+    {
+      icon: Bus,
+      title: "Transport Guide",
+      description: "Real-time local transport fare estimator and trip planning",
+      onClick: () => navigate("/dashboard/transport"),
     },
   ];
 

@@ -122,6 +122,8 @@ STATIC_URL = "static/"
 # Allow all origins (for development purposes)
 CORS_ALLOW_ALL_ORIGINS = True
 
+AZURE_API_KEY='12c6ced676b749258b582edd76600aa4'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

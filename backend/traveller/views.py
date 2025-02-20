@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import User
+from .models import User, LostAndFound
 from django.core.exceptions import ValidationError
 
 @csrf_exempt
@@ -70,4 +70,83 @@ def login_user(request):
                 'message': str(e)
             }, status=400)
     
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+
+@csrf_exempt
+def add_lost_found_item(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = User.objects.get(user_id=data['user_id'])
+            lost_found_item = LostAndFound(
+                user_id=user,
+                location=data['location'],
+                item_description=data['item_description'],
+                status=data['status']
+            )
+            lost_found_item.save()
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Lost and found item added successfully'
+            })
+        except User.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'User not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def update_lost_found_item(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            lost_found_item = LostAndFound.objects.get(report_id=data['report_id'])
+            lost_found_item.location = data.get('location', lost_found_item.location)
+            lost_found_item.item_description = data.get('item_description', lost_found_item.item_description)
+            lost_found_item.status = data.get('status', lost_found_item.status)
+            lost_found_item.save()
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Lost and found item updated successfully'
+            })
+        except LostAndFound.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Lost and found item not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def delete_lost_found_item(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            lost_found_item = LostAndFound.objects.get(report_id=data['report_id'])
+            lost_found_item.delete()
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Lost and found item deleted successfully'
+            })
+        except LostAndFound.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Lost and found item not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)

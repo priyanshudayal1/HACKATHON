@@ -110,9 +110,16 @@ def generate_trip(request):
 
 @csrf_exempt
 def get_transport_routes(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
-            data = json.loads(request.body)
+            source = request.GET.get('source')
+            destination = request.GET.get('destination')
+            
+            if not source or not destination:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Source and destination are required'
+                }, status=400)
             
             system_prompt = """You are a local transport expert. Generate different route options between two locations.
             Return exactly 3 routes in a JSON array format where each object represents a route with the following structure:
@@ -125,7 +132,7 @@ def get_transport_routes(request):
                 }
             ]"""
             
-            user_prompt = f"""Suggest different routes from {data['source']} to {data['destination']} considering:
+            user_prompt = f"""Suggest different routes from {source} to {destination} considering:
             - Various transport options (bus, train, metro, etc.)
             - Cost comparison
             - Duration of travel
@@ -145,9 +152,9 @@ def get_transport_routes(request):
             
         except Exception as e:
             return JsonResponse({
-                'status': 'success',
-                'routes': []  # Return empty array on error
-            })
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
 
@@ -206,27 +213,34 @@ def travel_suggestions(request):
             }, status=400)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
-
 @csrf_exempt
 def add_lost_found_item(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            print(data)
             user = User.objects.get(user_id=data['user_id'])
-            print("GOT HERe", user)
-            print(type(user))
             lost_found_item = LostAndFound(
-                user_id=user,
+                user=user,
                 location=data['location'],
                 item_description=data['item_description'],
-                status=data['status']
+                status=data['status'],
+                date_found=data.get('date_found', None)
             )
             lost_found_item.save()
-            return JsonResponse({
+            # Return the created item data
+            response_data = {
                 'status': 'success',
-                'message': 'Lost and found item added successfully'
-            })
+                'data': {
+                    'report_id': lost_found_item.report_id,
+                    'user_id': lost_found_item.user.user_id,
+                    'location': lost_found_item.location,
+                    'item_description': lost_found_item.item_description,
+                    'status': lost_found_item.status,
+                    'report_date': lost_found_item.report_date,
+                    'date_found': lost_found_item.date_found
+                }
+            }
+            return JsonResponse(response_data)
         except User.DoesNotExist:
             return JsonResponse({
                 'status': 'error',
@@ -249,10 +263,20 @@ def update_lost_found_item(request):
             lost_found_item.location = data.get('location', lost_found_item.location)
             lost_found_item.item_description = data.get('item_description', lost_found_item.item_description)
             lost_found_item.status = data.get('status', lost_found_item.status)
+            lost_found_item.date_found = data.get('date_found', lost_found_item.date_found)
             lost_found_item.save()
             return JsonResponse({
                 'status': 'success',
-                'message': 'Lost and found item updated successfully'
+                'message': 'Lost and found item updated successfully',
+                'data': {
+                    'report_id': lost_found_item.report_id,
+                    'user_id': lost_found_item.user.user_id,
+                    'location': lost_found_item.location,
+                    'item_description': lost_found_item.item_description,
+                    'status': lost_found_item.status,
+                    'report_date': lost_found_item.report_date,
+                    'date_found': lost_found_item.date_found
+                }
             })
         except LostAndFound.DoesNotExist:
             return JsonResponse({
@@ -296,10 +320,12 @@ def get_all_lost_found_items(request):
             items = LostAndFound.objects.all()
             items_list = [{
                 'report_id': item.report_id,
-                'user_id': item.user_id.user_id,
+                'user_id': item.user.user_id,
                 'location': item.location,
                 'item_description': item.item_description,
-                'status': item.status
+                'status': item.status,
+                'report_date': item.report_date,
+                'date_found': item.date_found
             } for item in items]
             return JsonResponse({
                 'status': 'success',

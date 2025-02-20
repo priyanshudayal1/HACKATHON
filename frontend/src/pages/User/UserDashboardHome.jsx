@@ -85,6 +85,12 @@ const UserDashboardHome = () => {
       description: "Instant language translation",
       onClick: () => navigate("/dashboard/smart-translator"),
     },
+    {
+      icon: Luggage,
+      title: "Travel Insurance Helper",
+      description: "Get assistance with travel insurance",
+      onClick: () => navigate("/dashboard/insurance"),
+    }
   ];
 
   return (

@@ -94,11 +94,7 @@ def generate_trip(request):
             - Include local food recommendations
             - Optimize the daily schedule for efficiency
             - Include estimated costs for each day"""
-            print('user_prompt:', user_prompt)
-            print('system_prompt:', system_prompt)
             response = callGPT(system_prompt, user_prompt)
-            print('response:', response)
-            
             return JsonResponse({
                 'status': 'success',
                 'trip_plan': response
@@ -109,5 +105,48 @@ def generate_trip(request):
                 'status': 'error',
                 'message': str(e)
             }, status=400)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def get_transport_routes(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            system_prompt = """You are a local transport expert. Generate different route options between two locations.
+            Return exactly 3 routes in a JSON array format where each object represents a route with the following structure:
+            [
+                {
+                    "duration": "estimated time",
+                    "cost": "estimated cost",
+                    "crowdLevel": "low/medium/high",
+                    "description": "detailed route description"
+                }
+            ]"""
+            
+            user_prompt = f"""Suggest different routes from {data['source']} to {data['destination']} considering:
+            - Various transport options (bus, train, metro, etc.)
+            - Cost comparison
+            - Duration of travel
+            - Crowd levels
+            - Route descriptions"""
+            
+            response = callGPT(system_prompt, user_prompt)
+            # Ensure response is a valid JSON array
+            routes = json.loads(response) if isinstance(response, str) else response
+            if not isinstance(routes, list):
+                routes = []
+                
+            return JsonResponse({
+                'status': 'success',
+                'routes': routes
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'status': 'success',
+                'routes': []  # Return empty array on error
+            })
     
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)

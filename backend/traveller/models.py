@@ -29,7 +29,8 @@ from django.db import models
 class User(models.Model):
     USER_TYPES = [
         ('Traveler', 'Traveler'),
-        ('Admin', 'Admin')
+        ('Admin', 'Admin'),
+        ('Community', 'Community')  # Added Community user type
     ]
     
     user_id = models.AutoField(primary_key=True)

@@ -54,7 +54,8 @@ def login_user(request):
                         'id': user.user_id,
                         'name': user.name,
                         'email': user.email,
-                        'user_type': user.user_type
+                        'user_type': user.user_type,
+                        'phone': user.phone
                     }
                 })
             else:

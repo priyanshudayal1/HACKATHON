@@ -14,3 +14,9 @@ export const translateText = async (data) => {
   const response = await api.post('/api/translate/', data);
   return response.data;
 };
+
+// Alert system endpoints
+export const getLocationAlerts = async (location) => {
+  const response = await api.get(`/api/alerts/location/?location=${encodeURIComponent(location)}`);
+  return response.data;
+};

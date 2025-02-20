@@ -213,6 +213,7 @@ def travel_suggestions(request):
             }, status=400)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
 @csrf_exempt
 def add_lost_found_item(request):
     if request.method == 'POST':
@@ -337,3 +338,46 @@ def get_all_lost_found_items(request):
                 'message': str(e)
             }, status=400)
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def translate_text(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            required_fields = ['sourceText', 'sourceLang', 'targetLang']
+            
+            if not all(field in data for field in required_fields):
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Missing required fields'
+                }, status=400)
+
+            system_prompt = """You are a professional translator. 
+            Translate the given text accurately while maintaining the context and meaning."""
+            
+            user_prompt = f"""Translate this text:
+            "{data['sourceText']}"
+            From: {data['sourceLang']}
+            To: {data['targetLang']}
+            
+            Provide only the translated text without any additional context or explanations."""
+            
+            translated_text = callGPT(system_prompt, user_prompt)
+            
+            return JsonResponse({
+                'status': 'success',
+                'translatedText': translated_text.strip(),
+                'sourceLang': data['sourceLang'],
+                'targetLang': data['targetLang']
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Invalid method'
+    }, status=405)

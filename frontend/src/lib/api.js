@@ -8,3 +8,9 @@ const api = axios.create({
 });
 
 export default api;
+
+// Translation endpoints
+export const translateText = async (data) => {
+  const response = await api.post('/api/translate/', data);
+  return response.data;
+};

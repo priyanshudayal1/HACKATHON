@@ -10,6 +10,7 @@ import LostAndFound from "./pages/User/Features/LostAndFound";
 import TransportGuide from "./pages/User/Features/TransportGuide";
 import TravelInsuranceHelper from "./pages/User/Features/TravelInsuranceHelper";
 import StateWiseGuidelines from "./pages/User/Features/StateWiseGuidelines";
+import TravelSuggestion from "./pages/User/Features/TravelSuggestion";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="lost-found" element={<LostAndFound />} />
         <Route path="insurance" element={<TravelInsuranceHelper />} />
         <Route path="guidelines" element={<StateWiseGuidelines />} />
+        <Route path="travel-suggestions" element={<TravelSuggestion />} />
       </Route>
 
       <Route path="*" element={<div>404 Not Found</div>} />

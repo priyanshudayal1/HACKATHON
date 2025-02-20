@@ -12,6 +12,7 @@ import TravelInsuranceHelper from "./pages/User/Features/TravelInsuranceHelper";
 import StateWiseGuidelines from "./pages/User/Features/StateWiseGuidelines";
 import TravelSuggestion from "./pages/User/Features/TravelSuggestion";
 import CrowdSourcedSafety from "./pages/User/Features/CrowdSourcedSafety";
+import SmartTranslation from "./pages/User/Features/SmartTranslation";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="guidelines" element={<StateWiseGuidelines />} />
         <Route path="travel-suggestions" element={<TravelSuggestion />} />
         <Route path="safety-map" element={<CrowdSourcedSafety />} />
+        <Route path="smart-translator" element={<SmartTranslation />} />
       </Route>
 
       <Route path="*" element={<div>404 Not Found</div>} />

@@ -97,6 +97,7 @@ const UserDashboardHome = () => {
       description: "Travel guidelines for different states",
       onClick: () => navigate("/dashboard/guidelines")
     }
+
   ];
 
   return (

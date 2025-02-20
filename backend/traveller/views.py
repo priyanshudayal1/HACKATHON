@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import User
 from django.core.exceptions import ValidationError
+from .utils import callGPT
 
 @csrf_exempt
 def register_user(request):
@@ -64,6 +65,45 @@ def login_user(request):
                 'status': 'error',
                 'message': 'User not found'
             }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+@csrf_exempt
+def generate_trip(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            system_prompt = """You are a travel planner expert. Generate a detailed day-by-day trip plan based on the user's requirements.
+            Format the response as a JSON array where each object represents a day with the following structure:
+            {
+                "places": "comma separated list of places",
+                "food": "recommended food places",
+                "activities": "suggested activities",
+                "budget": "estimated budget for the day"
+            }"""
+            
+            user_prompt = f"""Create a {data['days']}-day trip plan for {data['place']} with the following requirements:
+            - Total budget: {data['budget']} INR
+            - Preferred activities: {data['activity']}
+            - Include local food recommendations
+            - Optimize the daily schedule for efficiency
+            - Include estimated costs for each day"""
+            print('user_prompt:', user_prompt)
+            print('system_prompt:', system_prompt)
+            response = callGPT(system_prompt, user_prompt)
+            print('response:', response)
+            
+            return JsonResponse({
+                'status': 'success',
+                'trip_plan': response
+            })
+            
         except Exception as e:
             return JsonResponse({
                 'status': 'error',

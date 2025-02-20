@@ -157,21 +157,26 @@ def add_lost_found_item(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            print(data)
             user = User.objects.get(user_id=data['user_id'])
-            print("GOT HERe", user)
-            print(type(user))
             lost_found_item = LostAndFound(
-                user_id=user,
+                user=user,
                 location=data['location'],
                 item_description=data['item_description'],
                 status=data['status']
             )
             lost_found_item.save()
-            return JsonResponse({
+            # Return the created item data
+            response_data = {
                 'status': 'success',
-                'message': 'Lost and found item added successfully'
-            })
+                'data': {
+                    'report_id': lost_found_item.report_id,
+                    'user_id': lost_found_item.user.user_id,
+                    'location': lost_found_item.location,
+                    'item_description': lost_found_item.item_description,
+                    'status': lost_found_item.status,
+                }
+            }
+            return JsonResponse(response_data)
         except User.DoesNotExist:
             return JsonResponse({
                 'status': 'error',
@@ -241,7 +246,7 @@ def get_all_lost_found_items(request):
             items = LostAndFound.objects.all()
             items_list = [{
                 'report_id': item.report_id,
-                'user_id': item.user_id.user_id,
+                'user_id': item.user.user_id,
                 'location': item.location,
                 'item_description': item.item_description,
                 'status': item.status

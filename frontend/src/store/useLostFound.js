@@ -11,7 +11,11 @@ export const useLostFound = create((set, get) => ({
         set({ loading: true, error: null });
         try {
             const { data } = await api.get('/api/lost-found-items/');
-            set({ items: Array.isArray(data) ? data : [], loading: false });
+            if (data.status === 'success') {
+                set({ items: data.items || [], loading: false });
+            } else {
+                throw new Error(data.message);
+            }
         } catch (error) {
             console.error('Error fetching items:', error);
             set({ 
@@ -24,12 +28,17 @@ export const useLostFound = create((set, get) => ({
 
     addItem: async (newItem) => {
         try {
-            const { data } = await api.post('/api/add-lost-found-item/', newItem);
-            set(state => ({ items: [...state.items, data] }));
-            toast.success('Item added successfully!');
-            return true;
+            const response = await api.post('/api/add-lost-found-item/', newItem);
+            if (response.data.status === 'success') {
+                set(state => ({ items: [...state.items, response.data.data] }));
+                toast.success('Item added successfully!');
+                return true;
+            } else {
+                throw new Error(response.data.message);
+            }
         } catch (error) {
-            toast.error('Failed to add item. Please try again.');
+            const errorMessage = error.response?.data?.message || error.message || 'Failed to add item';
+            toast.error(errorMessage);
             return false;
         }
     },

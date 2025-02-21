@@ -125,7 +125,7 @@ STATIC_URL = "static/"
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-AZURE_API_KEY='12c6ced676b749258b582edd76600aa4'
+AZURE_API_KEY='API_KEYXXXXXXXXXXXXXX'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -137,5 +137,5 @@ EMAIL_HOST = 'smtp.example.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'  # Changed to Gmail SMTP server
-EMAIL_HOST_USER = 'piyushdayal108@gmail.com'
-EMAIL_HOST_PASSWORD = 'mxrf uchq efmw bjke'
+EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_PASSWORD = 'acbd efgh ijkl mnop'

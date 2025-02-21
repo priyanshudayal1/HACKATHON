@@ -131,3 +131,11 @@ AZURE_API_KEY='12c6ced676b749258b582edd76600aa4'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.example.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'  # Changed to Gmail SMTP server
+EMAIL_HOST_USER = 'piyushdayal108@gmail.com'
+EMAIL_HOST_PASSWORD = 'mxrf uchq efmw bjke'

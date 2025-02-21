@@ -1,0 +1,2034 @@
+{
+  "Maharashtra": {
+    "Mumbai": {
+      "Andheri": {
+        "crimes": {
+          "Theft": 7,
+          "Assault": 21,
+          "Murder": 25,
+          "Burglary": 25,
+          "Drug Abuse": 10
+        },
+        "total_crime": 88,
+        "safety_level": "Unsafe"
+      },
+      "Bandra": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 7,
+          "Murder": 9,
+          "Burglary": 25,
+          "Drug Abuse": 19
+        },
+        "total_crime": 89,
+        "safety_level": "Moderate"
+      },
+      "Dadar": {
+        "crimes": {
+          "Theft": 20,
+          "Assault": 30,
+          "Murder": 8,
+          "Burglary": 25,
+          "Drug Abuse": 16
+        },
+        "total_crime": 99,
+        "safety_level": "Moderate"
+      },
+      "Colaba": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 22,
+          "Murder": 29,
+          "Burglary": 18,
+          "Drug Abuse": 12
+        },
+        "total_crime": 97,
+        "safety_level": "Moderate"
+      },
+      "Kamathipura": {
+        "crimes": {
+          "Theft": 30,
+          "Assault": 18,
+          "Murder": 13,
+          "Burglary": 6,
+          "Drug Abuse": 8
+        },
+        "total_crime": 75,
+        "safety_level": "Moderate"
+      },
+      "Juhu": {
+        "crimes": {
+          "Theft": 25,
+          "Assault": 21,
+          "Murder": 19,
+          "Burglary": 10,
+          "Drug Abuse": 10
+        },
+        "total_crime": 85,
+        "safety_level": "Moderate"
+      },
+      "Powai": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 11,
+          "Murder": 21,
+          "Burglary": 18,
+          "Drug Abuse": 22
+        },
+        "total_crime": 78,
+        "safety_level": "Moderate"
+      },
+      "Worli": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 21,
+          "Murder": 24,
+          "Burglary": 8,
+          "Drug Abuse": 15
+        },
+        "total_crime": 73,
+        "safety_level": "Moderate"
+      },
+      "Borivali": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 24,
+          "Murder": 12,
+          "Burglary": 23,
+          "Drug Abuse": 6
+        },
+        "total_crime": 74,
+        "safety_level": "Moderate"
+      },
+      "Malad": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 6,
+          "Murder": 5,
+          "Burglary": 10,
+          "Drug Abuse": 8
+        },
+        "total_crime": 34,
+        "safety_level": "Safe"
+      }
+    },
+    "Pune": {
+      "Shivajinagar": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 24,
+          "Murder": 27,
+          "Burglary": 7,
+          "Drug Abuse": 16
+        },
+        "total_crime": 89,
+        "safety_level": "Moderate"
+      },
+      "Hinjewadi": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 26,
+          "Murder": 22,
+          "Burglary": 28,
+          "Drug Abuse": 22
+        },
+        "total_crime": 112,
+        "safety_level": "Unsafe"
+      },
+      "Kothrud": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 14,
+          "Murder": 9,
+          "Burglary": 21,
+          "Drug Abuse": 15
+        },
+        "total_crime": 74,
+        "safety_level": "Moderate"
+      },
+      "Hadapsar": {
+        "crimes": {
+          "Theft": 10,
+          "Assault": 10,
+          "Murder": 6,
+          "Burglary": 9,
+          "Drug Abuse": 13
+        },
+        "total_crime": 48,
+        "safety_level": "Safe"
+      },
+      "Budhwar Peth": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 5,
+          "Murder": 29,
+          "Burglary": 26,
+          "Drug Abuse": 26
+        },
+        "total_crime": 109,
+        "safety_level": "Unsafe"
+      },
+      "Kalyani Nagar": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 20,
+          "Murder": 5,
+          "Burglary": 8,
+          "Drug Abuse": 10
+        },
+        "total_crime": 70,
+        "safety_level": "Moderate"
+      },
+      "Baner": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 27,
+          "Murder": 29,
+          "Burglary": 10,
+          "Drug Abuse": 17
+        },
+        "total_crime": 95,
+        "safety_level": "Moderate"
+      },
+      "Viman Nagar": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 28,
+          "Murder": 29,
+          "Burglary": 30,
+          "Drug Abuse": 14
+        },
+        "total_crime": 113,
+        "safety_level": "Unsafe"
+      },
+      "Koregaon Park": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 23,
+          "Murder": 23,
+          "Burglary": 20,
+          "Drug Abuse": 24
+        },
+        "total_crime": 117,
+        "safety_level": "Unsafe"
+      },
+      "Aundh": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 17,
+          "Murder": 12,
+          "Burglary": 8,
+          "Drug Abuse": 13
+        },
+        "total_crime": 69,
+        "safety_level": "Safe"
+      }
+    },
+    "Nagpur": {
+      "Dharampeth": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 24,
+          "Murder": 9,
+          "Burglary": 25,
+          "Drug Abuse": 7
+        },
+        "total_crime": 77,
+        "safety_level": "Moderate"
+      },
+      "Sitabuldi": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 20,
+          "Murder": 20,
+          "Burglary": 13,
+          "Drug Abuse": 28
+        },
+        "total_crime": 90,
+        "safety_level": "Moderate"
+      },
+      "Sadar": {
+        "crimes": {
+          "Theft": 7,
+          "Assault": 29,
+          "Murder": 14,
+          "Burglary": 30,
+          "Drug Abuse": 25
+        },
+        "total_crime": 105,
+        "safety_level": "Unsafe"
+      },
+      "Gandhibagh": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 17,
+          "Murder": 21,
+          "Burglary": 26,
+          "Drug Abuse": 6
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Ganga Jamuna": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 25,
+          "Murder": 15,
+          "Burglary": 15,
+          "Drug Abuse": 25
+        },
+        "total_crime": 89,
+        "safety_level": "Moderate"
+      },
+      "Civil Lines": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 17,
+          "Murder": 9,
+          "Burglary": 18,
+          "Drug Abuse": 8
+        },
+        "total_crime": 69,
+        "safety_level": "Safe"
+      },
+      "Ram Nagar": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 20,
+          "Murder": 20,
+          "Burglary": 12,
+          "Drug Abuse": 10
+        },
+        "total_crime": 90,
+        "safety_level": "Moderate"
+      },
+      "Mankapur": {
+        "crimes": {
+          "Theft": 26,
+          "Assault": 26,
+          "Murder": 14,
+          "Burglary": 19,
+          "Drug Abuse": 30
+        },
+        "total_crime": 115,
+        "safety_level": "Unsafe"
+      },
+      "Mahal": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 12,
+          "Murder": 5,
+          "Burglary": 30,
+          "Drug Abuse": 29
+        },
+        "total_crime": 104,
+        "safety_level": "Unsafe"
+      },
+      "Ramdaspeth": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 18,
+          "Murder": 17,
+          "Burglary": 25,
+          "Drug Abuse": 28
+        },
+        "total_crime": 110,
+        "safety_level": "Unsafe"
+      }
+    }
+  },
+  "Uttar Pradesh": {
+    "Lucknow": {
+      "Hazratganj": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 30,
+          "Murder": 12,
+          "Burglary": 13,
+          "Drug Abuse": 25
+        },
+        "total_crime": 92,
+        "safety_level": "Moderate"
+      },
+      "Gomti Nagar": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 16,
+          "Murder": 10,
+          "Burglary": 21,
+          "Drug Abuse": 22
+        },
+        "total_crime": 84,
+        "safety_level": "Moderate"
+      },
+      "Alambagh": {
+        "crimes": {
+          "Theft": 30,
+          "Assault": 24,
+          "Murder": 30,
+          "Burglary": 8,
+          "Drug Abuse": 9
+        },
+        "total_crime": 101,
+        "safety_level": "Unsafe"
+      },
+      "Indira Nagar": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 10,
+          "Murder": 24,
+          "Burglary": 19,
+          "Drug Abuse": 21
+        },
+        "total_crime": 79,
+        "safety_level": "Moderate"
+      },
+      "Chowk": {
+        "crimes": {
+          "Theft": 13,
+          "Assault": 22,
+          "Murder": 9,
+          "Burglary": 11,
+          "Drug Abuse": 17
+        },
+        "total_crime": 72,
+        "safety_level": "Moderate"
+      },
+      "Aliganj": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 21,
+          "Murder": 10,
+          "Burglary": 26,
+          "Drug Abuse": 5
+        },
+        "total_crime": 79,
+        "safety_level": "Moderate"
+      },
+      "Mahanagar": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 21,
+          "Murder": 10,
+          "Burglary": 6,
+          "Drug Abuse": 29
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Vikas Nagar": {
+        "crimes": {
+          "Theft": 21,
+          "Assault": 8,
+          "Murder": 30,
+          "Burglary": 17,
+          "Drug Abuse": 7
+        },
+        "total_crime": 83,
+        "safety_level": "Moderate"
+      },
+      "Aminabad": {
+        "crimes": {
+          "Theft": 13,
+          "Assault": 30,
+          "Murder": 29,
+          "Burglary": 17,
+          "Drug Abuse": 12
+        },
+        "total_crime": 101,
+        "safety_level": "Moderate"
+      },
+      "Kaiserbagh": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 16,
+          "Murder": 15,
+          "Burglary": 20,
+          "Drug Abuse": 11
+        },
+        "total_crime": 67,
+        "safety_level": "Safe"
+      }
+    },
+    "Kanpur": {
+      "Swaroop Nagar": {
+        "crimes": {
+          "Theft": 11,
+          "Assault": 6,
+          "Murder": 12,
+          "Burglary": 18,
+          "Drug Abuse": 11
+        },
+        "total_crime": 58,
+        "safety_level": "Safe"
+      },
+      "Nawabganj": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 12,
+          "Murder": 5,
+          "Burglary": 13,
+          "Drug Abuse": 10
+        },
+        "total_crime": 63,
+        "safety_level": "Moderate"
+      },
+      "Kakadeo": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 9,
+          "Murder": 18,
+          "Burglary": 7,
+          "Drug Abuse": 22
+        },
+        "total_crime": 61,
+        "safety_level": "Moderate"
+      },
+      "Pandu Nagar": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 18,
+          "Murder": 29,
+          "Burglary": 23,
+          "Drug Abuse": 17
+        },
+        "total_crime": 116,
+        "safety_level": "Unsafe"
+      },
+      "Coolie Bazaar": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 30,
+          "Murder": 21,
+          "Burglary": 29,
+          "Drug Abuse": 5
+        },
+        "total_crime": 104,
+        "safety_level": "Unsafe"
+      },
+      "Civil Lines": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 9,
+          "Murder": 26,
+          "Burglary": 14,
+          "Drug Abuse": 21
+        },
+        "total_crime": 94,
+        "safety_level": "Unsafe"
+      },
+      "Generalganj": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 13,
+          "Murder": 22,
+          "Burglary": 9,
+          "Drug Abuse": 16
+        },
+        "total_crime": 84,
+        "safety_level": "Moderate"
+      },
+      "Kidwai Nagar": {
+        "crimes": {
+          "Theft": 25,
+          "Assault": 27,
+          "Murder": 16,
+          "Burglary": 23,
+          "Drug Abuse": 12
+        },
+        "total_crime": 103,
+        "safety_level": "Unsafe"
+      },
+      "Fazalganj": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 10,
+          "Murder": 25,
+          "Burglary": 28,
+          "Drug Abuse": 8
+        },
+        "total_crime": 98,
+        "safety_level": "Unsafe"
+      },
+      "Gumti": {
+        "crimes": {
+          "Theft": 8,
+          "Assault": 19,
+          "Murder": 9,
+          "Burglary": 10,
+          "Drug Abuse": 24
+        },
+        "total_crime": 70,
+        "safety_level": "Moderate"
+      }
+    },
+    "Varanasi": {
+      "Lanka": {
+        "crimes": {
+          "Theft": 7,
+          "Assault": 27,
+          "Murder": 25,
+          "Burglary": 23,
+          "Drug Abuse": 17
+        },
+        "total_crime": 99,
+        "safety_level": "Unsafe"
+      },
+      "Dashashwamedh": {
+        "crimes": {
+          "Theft": 7,
+          "Assault": 5,
+          "Murder": 6,
+          "Burglary": 12,
+          "Drug Abuse": 15
+        },
+        "total_crime": 45,
+        "safety_level": "Safe"
+      },
+      "Godowlia": {
+        "crimes": {
+          "Theft": 26,
+          "Assault": 14,
+          "Murder": 21,
+          "Burglary": 29,
+          "Drug Abuse": 19
+        },
+        "total_crime": 109,
+        "safety_level": "Unsafe"
+      },
+      "Sigra": {
+        "crimes": {
+          "Theft": 25,
+          "Assault": 12,
+          "Murder": 23,
+          "Burglary": 29,
+          "Drug Abuse": 6
+        },
+        "total_crime": 95,
+        "safety_level": "Unsafe"
+      },
+      "Manduadih": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 26,
+          "Murder": 24,
+          "Burglary": 7,
+          "Drug Abuse": 15
+        },
+        "total_crime": 89,
+        "safety_level": "Moderate"
+      },
+      "Assi": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 17,
+          "Murder": 14,
+          "Burglary": 10,
+          "Drug Abuse": 25
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Bhelupur": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 27,
+          "Murder": 21,
+          "Burglary": 10,
+          "Drug Abuse": 15
+        },
+        "total_crime": 101,
+        "safety_level": "Unsafe"
+      },
+      "Cantonment": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 25,
+          "Murder": 14,
+          "Burglary": 29,
+          "Drug Abuse": 18
+        },
+        "total_crime": 102,
+        "safety_level": "Moderate"
+      },
+      "Sarnath": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 24,
+          "Murder": 9,
+          "Burglary": 26,
+          "Drug Abuse": 21
+        },
+        "total_crime": 98,
+        "safety_level": "Unsafe"
+      },
+      "Pandeypur": {
+        "crimes": {
+          "Theft": 13,
+          "Assault": 8,
+          "Murder": 18,
+          "Burglary": 26,
+          "Drug Abuse": 19
+        },
+        "total_crime": 84,
+        "safety_level": "Moderate"
+      }
+    }
+  },
+  "Madhya Pradesh": {
+    "Bhopal": {
+      "TT Nagar": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 27,
+          "Murder": 16,
+          "Burglary": 10,
+          "Drug Abuse": 19
+        },
+        "total_crime": 96,
+        "safety_level": "Moderate"
+      },
+      "MP Nagar": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 8,
+          "Murder": 26,
+          "Burglary": 26,
+          "Drug Abuse": 21
+        },
+        "total_crime": 95,
+        "safety_level": "Unsafe"
+      },
+      "Old Bhopal": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 9,
+          "Murder": 6,
+          "Burglary": 16,
+          "Drug Abuse": 25
+        },
+        "total_crime": 65,
+        "safety_level": "Moderate"
+      },
+      "Kolar Road": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 13,
+          "Murder": 9,
+          "Burglary": 20,
+          "Drug Abuse": 18
+        },
+        "total_crime": 72,
+        "safety_level": "Safe"
+      },
+      "New Market": {
+        "crimes": {
+          "Theft": 26,
+          "Assault": 29,
+          "Murder": 13,
+          "Burglary": 18,
+          "Drug Abuse": 12
+        },
+        "total_crime": 98,
+        "safety_level": "Moderate"
+      },
+      "Arera Colony": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 28,
+          "Murder": 13,
+          "Burglary": 20,
+          "Drug Abuse": 20
+        },
+        "total_crime": 100,
+        "safety_level": "Moderate"
+      },
+      "Bairagarh": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 7,
+          "Murder": 26,
+          "Burglary": 5,
+          "Drug Abuse": 19
+        },
+        "total_crime": 85,
+        "safety_level": "Moderate"
+      },
+      "Shahpura": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 16,
+          "Murder": 20,
+          "Burglary": 25,
+          "Drug Abuse": 23
+        },
+        "total_crime": 99,
+        "safety_level": "Moderate"
+      },
+      "Karond": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 8,
+          "Murder": 30,
+          "Burglary": 28,
+          "Drug Abuse": 9
+        },
+        "total_crime": 90,
+        "safety_level": "Moderate"
+      },
+      "Habibganj": {
+        "crimes": {
+          "Theft": 7,
+          "Assault": 19,
+          "Murder": 19,
+          "Burglary": 23,
+          "Drug Abuse": 8
+        },
+        "total_crime": 76,
+        "safety_level": "Moderate"
+      }
+    },
+    "Indore": {
+      "Rajwada": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 22,
+          "Murder": 22,
+          "Burglary": 6,
+          "Drug Abuse": 28
+        },
+        "total_crime": 101,
+        "safety_level": "Unsafe"
+      },
+      "Vijay Nagar": {
+        "crimes": {
+          "Theft": 10,
+          "Assault": 25,
+          "Murder": 17,
+          "Burglary": 16,
+          "Drug Abuse": 23
+        },
+        "total_crime": 91,
+        "safety_level": "Moderate"
+      },
+      "Palasia": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 29,
+          "Murder": 13,
+          "Burglary": 26,
+          "Drug Abuse": 7
+        },
+        "total_crime": 90,
+        "safety_level": "Moderate"
+      },
+      "MG Road": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 28,
+          "Murder": 6,
+          "Burglary": 5,
+          "Drug Abuse": 22
+        },
+        "total_crime": 84,
+        "safety_level": "Unsafe"
+      },
+      "Chhoti Gwaltoli": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 24,
+          "Murder": 8,
+          "Burglary": 18,
+          "Drug Abuse": 13
+        },
+        "total_crime": 72,
+        "safety_level": "Moderate"
+      },
+      "Bhawarkuan": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 24,
+          "Murder": 10,
+          "Burglary": 21,
+          "Drug Abuse": 9
+        },
+        "total_crime": 81,
+        "safety_level": "Moderate"
+      },
+      "LIG Colony": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 30,
+          "Murder": 12,
+          "Burglary": 15,
+          "Drug Abuse": 21
+        },
+        "total_crime": 107,
+        "safety_level": "Unsafe"
+      },
+      "Scheme 78": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 18,
+          "Murder": 27,
+          "Burglary": 12,
+          "Drug Abuse": 26
+        },
+        "total_crime": 107,
+        "safety_level": "Unsafe"
+      },
+      "New Palasia": {
+        "crimes": {
+          "Theft": 26,
+          "Assault": 22,
+          "Murder": 16,
+          "Burglary": 22,
+          "Drug Abuse": 9
+        },
+        "total_crime": 95,
+        "safety_level": "Unsafe"
+      },
+      "Sapna Sangeeta": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 27,
+          "Murder": 22,
+          "Burglary": 29,
+          "Drug Abuse": 15
+        },
+        "total_crime": 112,
+        "safety_level": "Unsafe"
+      }
+    },
+    "Jabalpur": {
+      "Napier Town": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 23,
+          "Murder": 15,
+          "Burglary": 12,
+          "Drug Abuse": 19
+        },
+        "total_crime": 92,
+        "safety_level": "Moderate"
+      },
+      "Gorakhpur": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 6,
+          "Murder": 10,
+          "Burglary": 22,
+          "Drug Abuse": 12
+        },
+        "total_crime": 56,
+        "safety_level": "Moderate"
+      },
+      "Wright Town": {
+        "crimes": {
+          "Theft": 11,
+          "Assault": 5,
+          "Murder": 5,
+          "Burglary": 11,
+          "Drug Abuse": 10
+        },
+        "total_crime": 42,
+        "safety_level": "Safe"
+      },
+      "Ganjipura": {
+        "crimes": {
+          "Theft": 11,
+          "Assault": 14,
+          "Murder": 9,
+          "Burglary": 10,
+          "Drug Abuse": 14
+        },
+        "total_crime": 58,
+        "safety_level": "Safe"
+      },
+      "Ranjhi": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 23,
+          "Murder": 21,
+          "Burglary": 11,
+          "Drug Abuse": 10
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Adhartal": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 18,
+          "Murder": 5,
+          "Burglary": 23,
+          "Drug Abuse": 22
+        },
+        "total_crime": 86,
+        "safety_level": "Moderate"
+      },
+      "Garha": {
+        "crimes": {
+          "Theft": 26,
+          "Assault": 19,
+          "Murder": 13,
+          "Burglary": 9,
+          "Drug Abuse": 19
+        },
+        "total_crime": 86,
+        "safety_level": "Moderate"
+      },
+      "Madhotal": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 13,
+          "Murder": 10,
+          "Burglary": 21,
+          "Drug Abuse": 28
+        },
+        "total_crime": 95,
+        "safety_level": "Unsafe"
+      },
+      "Civil Lines": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 25,
+          "Murder": 24,
+          "Burglary": 10,
+          "Drug Abuse": 24
+        },
+        "total_crime": 88,
+        "safety_level": "Unsafe"
+      },
+      "Madan Mahal": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 13,
+          "Murder": 7,
+          "Burglary": 13,
+          "Drug Abuse": 20
+        },
+        "total_crime": 65,
+        "safety_level": "Safe"
+      }
+    }
+  },
+  "Delhi": {
+    "North Delhi": {
+      "Kashmere Gate": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 24,
+          "Murder": 15,
+          "Burglary": 13,
+          "Drug Abuse": 20
+        },
+        "total_crime": 96,
+        "safety_level": "Moderate"
+      },
+      "Kamla Nagar": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 28,
+          "Murder": 6,
+          "Burglary": 18,
+          "Drug Abuse": 17
+        },
+        "total_crime": 91,
+        "safety_level": "Moderate"
+      },
+      "Rohini": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 9,
+          "Murder": 16,
+          "Burglary": 14,
+          "Drug Abuse": 22
+        },
+        "total_crime": 83,
+        "safety_level": "Moderate"
+      },
+      "Model Town": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 17,
+          "Murder": 25,
+          "Burglary": 12,
+          "Drug Abuse": 25
+        },
+        "total_crime": 101,
+        "safety_level": "Unsafe"
+      },
+      "Paharganj": {
+        "crimes": {
+          "Theft": 8,
+          "Assault": 13,
+          "Murder": 27,
+          "Burglary": 15,
+          "Drug Abuse": 27
+        },
+        "total_crime": 90,
+        "safety_level": "Moderate"
+      },
+      "Civil Lines": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 20,
+          "Murder": 11,
+          "Burglary": 13,
+          "Drug Abuse": 25
+        },
+        "total_crime": 87,
+        "safety_level": "Moderate"
+      },
+      "Pitampura": {
+        "crimes": {
+          "Theft": 30,
+          "Assault": 9,
+          "Murder": 30,
+          "Burglary": 20,
+          "Drug Abuse": 28
+        },
+        "total_crime": 117,
+        "safety_level": "Unsafe"
+      },
+      "Shakti Nagar": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 25,
+          "Murder": 5,
+          "Burglary": 20,
+          "Drug Abuse": 22
+        },
+        "total_crime": 77,
+        "safety_level": "Moderate"
+      },
+      "Ashok Vihar": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 24,
+          "Murder": 17,
+          "Burglary": 20,
+          "Drug Abuse": 25
+        },
+        "total_crime": 98,
+        "safety_level": "Moderate"
+      },
+      "Mukherjee Nagar": {
+        "crimes": {
+          "Theft": 23,
+          "Assault": 9,
+          "Murder": 24,
+          "Burglary": 27,
+          "Drug Abuse": 15
+        },
+        "total_crime": 98,
+        "safety_level": "Unsafe"
+      }
+    },
+    "South Delhi": {
+      "Saket": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 28,
+          "Murder": 25,
+          "Burglary": 13,
+          "Drug Abuse": 9
+        },
+        "total_crime": 97,
+        "safety_level": "Unsafe"
+      },
+      "Hauz Khas": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 9,
+          "Murder": 9,
+          "Burglary": 26,
+          "Drug Abuse": 11
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Lajpat Nagar": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 17,
+          "Murder": 9,
+          "Burglary": 7,
+          "Drug Abuse": 16
+        },
+        "total_crime": 64,
+        "safety_level": "Safe"
+      },
+      "Greater Kailash": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 18,
+          "Murder": 29,
+          "Burglary": 20,
+          "Drug Abuse": 6
+        },
+        "total_crime": 91,
+        "safety_level": "Moderate"
+      },
+      "Mehrauli": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 18,
+          "Murder": 20,
+          "Burglary": 19,
+          "Drug Abuse": 19
+        },
+        "total_crime": 81,
+        "safety_level": "Safe"
+      },
+      "Defence Colony": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 13,
+          "Murder": 7,
+          "Burglary": 27,
+          "Drug Abuse": 19
+        },
+        "total_crime": 93,
+        "safety_level": "Moderate"
+      },
+      "Malviya Nagar": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 30,
+          "Murder": 28,
+          "Burglary": 9,
+          "Drug Abuse": 18
+        },
+        "total_crime": 103,
+        "safety_level": "Moderate"
+      },
+      "Vasant Kunj": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 5,
+          "Murder": 19,
+          "Burglary": 13,
+          "Drug Abuse": 9
+        },
+        "total_crime": 75,
+        "safety_level": "Moderate"
+      },
+      "Green Park": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 20,
+          "Murder": 14,
+          "Burglary": 17,
+          "Drug Abuse": 26
+        },
+        "total_crime": 104,
+        "safety_level": "Moderate"
+      },
+      "Chhatarpur": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 9,
+          "Murder": 30,
+          "Burglary": 12,
+          "Drug Abuse": 10
+        },
+        "total_crime": 70,
+        "safety_level": "Moderate"
+      }
+    },
+    "East Delhi": {
+      "Mayur Vihar": {
+        "crimes": {
+          "Theft": 30,
+          "Assault": 27,
+          "Murder": 25,
+          "Burglary": 5,
+          "Drug Abuse": 18
+        },
+        "total_crime": 105,
+        "safety_level": "Unsafe"
+      },
+      "Preet Vihar": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 7,
+          "Murder": 22,
+          "Burglary": 21,
+          "Drug Abuse": 29
+        },
+        "total_crime": 88,
+        "safety_level": "Unsafe"
+      },
+      "Laxmi Nagar": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 17,
+          "Murder": 30,
+          "Burglary": 25,
+          "Drug Abuse": 26
+        },
+        "total_crime": 115,
+        "safety_level": "Unsafe"
+      },
+      "Shakarpur": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 15,
+          "Murder": 5,
+          "Burglary": 17,
+          "Drug Abuse": 22
+        },
+        "total_crime": 81,
+        "safety_level": "Moderate"
+      },
+      "Anand Vihar": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 19,
+          "Murder": 5,
+          "Burglary": 12,
+          "Drug Abuse": 16
+        },
+        "total_crime": 81,
+        "safety_level": "Moderate"
+      },
+      "Patparganj": {
+        "crimes": {
+          "Theft": 10,
+          "Assault": 29,
+          "Murder": 25,
+          "Burglary": 13,
+          "Drug Abuse": 30
+        },
+        "total_crime": 107,
+        "safety_level": "Unsafe"
+      },
+      "Krishna Nagar": {
+        "crimes": {
+          "Theft": 20,
+          "Assault": 28,
+          "Murder": 8,
+          "Burglary": 25,
+          "Drug Abuse": 21
+        },
+        "total_crime": 102,
+        "safety_level": "Unsafe"
+      },
+      "Nirman Vihar": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 12,
+          "Murder": 13,
+          "Burglary": 11,
+          "Drug Abuse": 6
+        },
+        "total_crime": 64,
+        "safety_level": "Moderate"
+      },
+      "Vaishali": {
+        "crimes": {
+          "Theft": 10,
+          "Assault": 20,
+          "Murder": 7,
+          "Burglary": 14,
+          "Drug Abuse": 22
+        },
+        "total_crime": 73,
+        "safety_level": "Moderate"
+      },
+      "Indirapuram": {
+        "crimes": {
+          "Theft": 21,
+          "Assault": 22,
+          "Murder": 7,
+          "Burglary": 30,
+          "Drug Abuse": 11
+        },
+        "total_crime": 91,
+        "safety_level": "Unsafe"
+      }
+    }
+  },
+  "West Bengal": {
+    "Kolkata": {
+      "Park Street": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 29,
+          "Murder": 16,
+          "Burglary": 7,
+          "Drug Abuse": 15
+        },
+        "total_crime": 91,
+        "safety_level": "Moderate"
+      },
+      "Esplanade": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 11,
+          "Murder": 28,
+          "Burglary": 15,
+          "Drug Abuse": 14
+        },
+        "total_crime": 97,
+        "safety_level": "Moderate"
+      },
+      "Gariahat": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 27,
+          "Murder": 19,
+          "Burglary": 25,
+          "Drug Abuse": 8
+        },
+        "total_crime": 97,
+        "safety_level": "Moderate"
+      },
+      "Salt Lake": {
+        "crimes": {
+          "Theft": 8,
+          "Assault": 30,
+          "Murder": 13,
+          "Burglary": 20,
+          "Drug Abuse": 21
+        },
+        "total_crime": 92,
+        "safety_level": "Moderate"
+      },
+      "Sonagachi": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 23,
+          "Murder": 11,
+          "Burglary": 28,
+          "Drug Abuse": 13
+        },
+        "total_crime": 102,
+        "safety_level": "Unsafe"
+      },
+      "Ballygunge": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 24,
+          "Murder": 18,
+          "Burglary": 15,
+          "Drug Abuse": 17
+        },
+        "total_crime": 102,
+        "safety_level": "Moderate"
+      },
+      "New Town": {
+        "crimes": {
+          "Theft": 18,
+          "Assault": 29,
+          "Murder": 16,
+          "Burglary": 20,
+          "Drug Abuse": 21
+        },
+        "total_crime": 104,
+        "safety_level": "Moderate"
+      },
+      "Behala": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 12,
+          "Murder": 27,
+          "Burglary": 15,
+          "Drug Abuse": 6
+        },
+        "total_crime": 74,
+        "safety_level": "Moderate"
+      },
+      "Alipore": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 16,
+          "Murder": 15,
+          "Burglary": 25,
+          "Drug Abuse": 7
+        },
+        "total_crime": 79,
+        "safety_level": "Moderate"
+      },
+      "Bhowanipore": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 14,
+          "Murder": 11,
+          "Burglary": 15,
+          "Drug Abuse": 26
+        },
+        "total_crime": 93,
+        "safety_level": "Moderate"
+      }
+    },
+    "Howrah": {
+      "Shibpur": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 20,
+          "Murder": 12,
+          "Burglary": 6,
+          "Drug Abuse": 28
+        },
+        "total_crime": 88,
+        "safety_level": "Moderate"
+      },
+      "Bally": {
+        "crimes": {
+          "Theft": 8,
+          "Assault": 22,
+          "Murder": 24,
+          "Burglary": 25,
+          "Drug Abuse": 9
+        },
+        "total_crime": 88,
+        "safety_level": "Unsafe"
+      },
+      "Santragachi": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 21,
+          "Murder": 24,
+          "Burglary": 14,
+          "Drug Abuse": 22
+        },
+        "total_crime": 97,
+        "safety_level": "Unsafe"
+      },
+      "Liluah": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 18,
+          "Murder": 15,
+          "Burglary": 25,
+          "Drug Abuse": 13
+        },
+        "total_crime": 87,
+        "safety_level": "Moderate"
+      },
+      "Mourigram": {
+        "crimes": {
+          "Theft": 21,
+          "Assault": 14,
+          "Murder": 16,
+          "Burglary": 17,
+          "Drug Abuse": 14
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Kadamtala": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 6,
+          "Murder": 19,
+          "Burglary": 28,
+          "Drug Abuse": 5
+        },
+        "total_crime": 64,
+        "safety_level": "Moderate"
+      },
+      "Salkia": {
+        "crimes": {
+          "Theft": 20,
+          "Assault": 24,
+          "Murder": 9,
+          "Burglary": 29,
+          "Drug Abuse": 13
+        },
+        "total_crime": 95,
+        "safety_level": "Moderate"
+      },
+      "Belur": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 20,
+          "Murder": 22,
+          "Burglary": 14,
+          "Drug Abuse": 23
+        },
+        "total_crime": 93,
+        "safety_level": "Moderate"
+      },
+      "Dasnagar": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 29,
+          "Murder": 21,
+          "Burglary": 22,
+          "Drug Abuse": 28
+        },
+        "total_crime": 119,
+        "safety_level": "Unsafe"
+      },
+      "Howrah Maidan": {
+        "crimes": {
+          "Theft": 26,
+          "Assault": 14,
+          "Murder": 17,
+          "Burglary": 11,
+          "Drug Abuse": 24
+        },
+        "total_crime": 92,
+        "safety_level": "Moderate"
+      }
+    },
+    "Durgapur": {
+      "City Centre": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 28,
+          "Murder": 11,
+          "Burglary": 28,
+          "Drug Abuse": 6
+        },
+        "total_crime": 97,
+        "safety_level": "Unsafe"
+      },
+      "Benachity": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 9,
+          "Murder": 24,
+          "Burglary": 8,
+          "Drug Abuse": 23
+        },
+        "total_crime": 76,
+        "safety_level": "Moderate"
+      },
+      "Muchipara": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 7,
+          "Murder": 25,
+          "Burglary": 5,
+          "Drug Abuse": 24
+        },
+        "total_crime": 90,
+        "safety_level": "Unsafe"
+      },
+      "Bidhannagar": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 26,
+          "Murder": 8,
+          "Burglary": 27,
+          "Drug Abuse": 29
+        },
+        "total_crime": 96,
+        "safety_level": "Unsafe"
+      },
+      "Indira Gandhi Road": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 7,
+          "Murder": 28,
+          "Burglary": 7,
+          "Drug Abuse": 29
+        },
+        "total_crime": 99,
+        "safety_level": "Unsafe"
+      },
+      "Steel Township": {
+        "crimes": {
+          "Theft": 11,
+          "Assault": 10,
+          "Murder": 9,
+          "Burglary": 23,
+          "Drug Abuse": 14
+        },
+        "total_crime": 67,
+        "safety_level": "Moderate"
+      },
+      "Raghunathpur": {
+        "crimes": {
+          "Theft": 16,
+          "Assault": 20,
+          "Murder": 12,
+          "Burglary": 27,
+          "Drug Abuse": 12
+        },
+        "total_crime": 87,
+        "safety_level": "Moderate"
+      },
+      "Faridpur": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 30,
+          "Murder": 10,
+          "Burglary": 6,
+          "Drug Abuse": 6
+        },
+        "total_crime": 67,
+        "safety_level": "Moderate"
+      },
+      "Amrai": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 22,
+          "Murder": 29,
+          "Burglary": 23,
+          "Drug Abuse": 9
+        },
+        "total_crime": 105,
+        "safety_level": "Unsafe"
+      },
+      "Nac Township": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 22,
+          "Murder": 24,
+          "Burglary": 19,
+          "Drug Abuse": 9
+        },
+        "total_crime": 80,
+        "safety_level": "Moderate"
+      }
+    }
+  },
+  "Karnataka": {
+    "Bangalore": {
+      "Whitefield": {
+        "crimes": {
+          "Theft": 21,
+          "Assault": 18,
+          "Murder": 6,
+          "Burglary": 19,
+          "Drug Abuse": 17
+        },
+        "total_crime": 81,
+        "safety_level": "Moderate"
+      },
+      "Koramangala": {
+        "crimes": {
+          "Theft": 8,
+          "Assault": 6,
+          "Murder": 15,
+          "Burglary": 12,
+          "Drug Abuse": 12
+        },
+        "total_crime": 53,
+        "safety_level": "Safe"
+      },
+      "Indiranagar": {
+        "crimes": {
+          "Theft": 28,
+          "Assault": 15,
+          "Murder": 20,
+          "Burglary": 15,
+          "Drug Abuse": 25
+        },
+        "total_crime": 103,
+        "safety_level": "Moderate"
+      },
+      "Jayanagar": {
+        "crimes": {
+          "Theft": 5,
+          "Assault": 23,
+          "Murder": 11,
+          "Burglary": 18,
+          "Drug Abuse": 15
+        },
+        "total_crime": 72,
+        "safety_level": "Moderate"
+      },
+      "MG Road": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 20,
+          "Murder": 28,
+          "Burglary": 28,
+          "Drug Abuse": 19
+        },
+        "total_crime": 101,
+        "safety_level": "Moderate"
+      },
+      "HSR Layout": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 10,
+          "Murder": 19,
+          "Burglary": 22,
+          "Drug Abuse": 10
+        },
+        "total_crime": 88,
+        "safety_level": "Moderate"
+      },
+      "JP Nagar": {
+        "crimes": {
+          "Theft": 11,
+          "Assault": 25,
+          "Murder": 12,
+          "Burglary": 15,
+          "Drug Abuse": 29
+        },
+        "total_crime": 92,
+        "safety_level": "Moderate"
+      },
+      "Marathahalli": {
+        "crimes": {
+          "Theft": 21,
+          "Assault": 10,
+          "Murder": 25,
+          "Burglary": 5,
+          "Drug Abuse": 27
+        },
+        "total_crime": 88,
+        "safety_level": "Unsafe"
+      },
+      "Electronic City": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 7,
+          "Murder": 15,
+          "Burglary": 28,
+          "Drug Abuse": 19
+        },
+        "total_crime": 93,
+        "safety_level": "Moderate"
+      },
+      "BTM Layout": {
+        "crimes": {
+          "Theft": 6,
+          "Assault": 12,
+          "Murder": 12,
+          "Burglary": 29,
+          "Drug Abuse": 19
+        },
+        "total_crime": 78,
+        "safety_level": "Moderate"
+      }
+    }
+  },
+  "Tamil Nadu": {
+    "Chennai": {
+      "T. Nagar": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 17,
+          "Murder": 21,
+          "Burglary": 28,
+          "Drug Abuse": 5
+        },
+        "total_crime": 85,
+        "safety_level": "Moderate"
+      },
+      "Adyar": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 12,
+          "Murder": 13,
+          "Burglary": 19,
+          "Drug Abuse": 11
+        },
+        "total_crime": 74,
+        "safety_level": "Safe"
+      },
+      "Velachery": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 8,
+          "Murder": 6,
+          "Burglary": 17,
+          "Drug Abuse": 22
+        },
+        "total_crime": 80,
+        "safety_level": "Moderate"
+      },
+      "Anna Nagar": {
+        "crimes": {
+          "Theft": 29,
+          "Assault": 10,
+          "Murder": 25,
+          "Burglary": 30,
+          "Drug Abuse": 13
+        },
+        "total_crime": 107,
+        "safety_level": "Unsafe"
+      },
+      "Mylapore": {
+        "crimes": {
+          "Theft": 12,
+          "Assault": 5,
+          "Murder": 28,
+          "Burglary": 22,
+          "Drug Abuse": 17
+        },
+        "total_crime": 84,
+        "safety_level": "Moderate"
+      },
+      "Besant Nagar": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 14,
+          "Murder": 22,
+          "Burglary": 27,
+          "Drug Abuse": 22
+        },
+        "total_crime": 99,
+        "safety_level": "Unsafe"
+      },
+      "Nungambakkam": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 30,
+          "Murder": 5,
+          "Burglary": 22,
+          "Drug Abuse": 16
+        },
+        "total_crime": 88,
+        "safety_level": "Moderate"
+      },
+      "Alwarpet": {
+        "crimes": {
+          "Theft": 9,
+          "Assault": 21,
+          "Murder": 29,
+          "Burglary": 7,
+          "Drug Abuse": 7
+        },
+        "total_crime": 73,
+        "safety_level": "Moderate"
+      },
+      "Royapettah": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 8,
+          "Murder": 22,
+          "Burglary": 10,
+          "Drug Abuse": 16
+        },
+        "total_crime": 70,
+        "safety_level": "Moderate"
+      },
+      "Porur": {
+        "crimes": {
+          "Theft": 8,
+          "Assault": 28,
+          "Murder": 10,
+          "Burglary": 6,
+          "Drug Abuse": 12
+        },
+        "total_crime": 64,
+        "safety_level": "Moderate"
+      }
+    }
+  },
+  "Telangana": {
+    "Hyderabad": {
+      "Banjara Hills": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 12,
+          "Murder": 25,
+          "Burglary": 13,
+          "Drug Abuse": 15
+        },
+        "total_crime": 79,
+        "safety_level": "Moderate"
+      },
+      "Jubilee Hills": {
+        "crimes": {
+          "Theft": 24,
+          "Assault": 7,
+          "Murder": 13,
+          "Burglary": 21,
+          "Drug Abuse": 17
+        },
+        "total_crime": 82,
+        "safety_level": "Moderate"
+      },
+      "Madhapur": {
+        "crimes": {
+          "Theft": 22,
+          "Assault": 30,
+          "Murder": 16,
+          "Burglary": 21,
+          "Drug Abuse": 20
+        },
+        "total_crime": 109,
+        "safety_level": "Unsafe"
+      },
+      "Gachibowli": {
+        "crimes": {
+          "Theft": 11,
+          "Assault": 13,
+          "Murder": 27,
+          "Burglary": 12,
+          "Drug Abuse": 17
+        },
+        "total_crime": 80,
+        "safety_level": "Moderate"
+      },
+      "Secunderabad": {
+        "crimes": {
+          "Theft": 15,
+          "Assault": 11,
+          "Murder": 16,
+          "Burglary": 21,
+          "Drug Abuse": 28
+        },
+        "total_crime": 91,
+        "safety_level": "Moderate"
+      },
+      "Hi-Tech City": {
+        "crimes": {
+          "Theft": 19,
+          "Assault": 24,
+          "Murder": 21,
+          "Burglary": 15,
+          "Drug Abuse": 15
+        },
+        "total_crime": 94,
+        "safety_level": "Moderate"
+      },
+      "Kukatpally": {
+        "crimes": {
+          "Theft": 27,
+          "Assault": 28,
+          "Murder": 16,
+          "Burglary": 29,
+          "Drug Abuse": 30
+        },
+        "total_crime": 130,
+        "safety_level": "Unsafe"
+      },
+      "Ameerpet": {
+        "crimes": {
+          "Theft": 21,
+          "Assault": 22,
+          "Murder": 29,
+          "Burglary": 21,
+          "Drug Abuse": 26
+        },
+        "total_crime": 119,
+        "safety_level": "Unsafe"
+      },
+      "Begumpet": {
+        "crimes": {
+          "Theft": 14,
+          "Assault": 5,
+          "Murder": 27,
+          "Burglary": 19,
+          "Drug Abuse": 7
+        },
+        "total_crime": 72,
+        "safety_level": "Moderate"
+      },
+      "Kondapur": {
+        "crimes": {
+          "Theft": 17,
+          "Assault": 13,
+          "Murder": 13,
+          "Burglary": 9,
+          "Drug Abuse": 16
+        },
+        "total_crime": 68,
+        "safety_level": "Safe"
+      }
+    }
+  }
+}

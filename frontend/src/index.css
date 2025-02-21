@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+button:hover {
+  cursor: pointer;
+}
+
 /* Leaflet Map Styles */
 .leaflet-container {
   width: 100%;

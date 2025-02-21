@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: #111827;
+        color: #fff;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(to bottom right, #111827, #1e1b4b);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.15);
+      }
+      .header {
+        background: linear-gradient(
+          135deg,
+          rgba(79, 70, 229, 0.2),
+          rgba(29, 78, 216, 0.2)
+        );
+        backdrop-filter: blur(12px);
+        color: white;
+        padding: 24px;
+        text-align: center;
+        border-radius: 12px;
+        border: 1px solid rgba(79, 70, 229, 0.3);
+        margin-bottom: 24px;
+      }
+      .content {
+        padding: 24px;
+        color: #e2e8f0;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+      }
+      .location-box {
+        background: rgba(79, 70, 229, 0.1);
+        border: 1px solid rgba(79, 70, 229, 0.2);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+        backdrop-filter: blur(8px);
+      }
+      .contact-info {
+        background: rgba(79, 70, 229, 0.15);
+        border-left: 4px solid #4f46e5;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 0 12px 12px 0;
+      }
+      .maps-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #4f46e5, #4338ca);
+        color: white;
+        padding: 14px 28px;
+        text-decoration: none;
+        border-radius: 12px;
+        margin: 20px 0;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .maps-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px -6px rgba(79, 70, 229, 0.5);
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #94a3b8;
+        font-size: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 24px;
+      }
+      .emergency-label {
+        display: inline-block;
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      h1,
+      h3 {
+        color: white;
+        font-weight: 600;
+      }
+      h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      p {
+        line-height: 1.6;
+        margin: 8px 0;
+      }
+      strong {
+        color: white;
+      }
+      @media only screen and (max-width: 600px) {
+        .container {
+          width: 100%;
+          margin: 0;
+          border-radius: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="emergency-label">EMERGENCY SOS ALERT</div>
+        <h1>Emergency Alert</h1>
+      </div>
+      <div class="content">
+        <p>
+          <strong>{{ user_name }}</strong> has triggered an emergency SOS alert.
+        </p>
+
+        <div class="location-box">
+          <h3>📍 Location Details</h3>
+          {% if location_info %}
+          <p><strong>Address:</strong> {{ location_info.address }}</p>
+          <p><strong>Nearby Area:</strong> {{ location_info.nearby }}</p>
+          <p><strong>City:</strong> {{ location_info.city }}</p>
+          <p><strong>State:</strong> {{ location_info.state }}</p>
+          <p><strong>Country:</strong> {{ location_info.country }}</p>
+          {% else %}
+          <p><strong>Coordinates:</strong> {{ latitude }}, {{ longitude }}</p>
+          {% endif %}
+        </div>
+
+        <a href="{{ maps_link }}" class="maps-button"> View on Google Maps </a>
+
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <p><strong>Name:</strong> {{ user_name }}</p>
+          <p><strong>Phone:</strong> {{ user_phone }}</p>
+          <p><strong>Email:</strong> {{ user_email }}</p>
+        </div>
+
+        <p
+          style="
+            color: #ef4444;
+            font-weight: 600;
+            text-align: center;
+            padding: 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            margin-top: 24px;
+          "
+        >
+          PLEASE ATTEMPT TO CONTACT THEM IMMEDIATELY!
+        </p>
+      </div>
+      <div class="footer">
+        <p>This is an automated emergency alert. Please respond urgently.</p>
+        <p>Sent via Yatra Karo Safety System</p>
+      </div>
+    </div>
+  </body>
+</html>

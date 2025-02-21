@@ -14,6 +14,7 @@ import TravelSuggestion from "./pages/User/Features/TravelSuggestion";
 import CrowdSourcedSafety from "./pages/User/Features/CrowdSourcedSafety";
 import SmartTranslation from "./pages/User/Features/SmartTranslation";
 import AlertsSystems from "./pages/User/Features/AlertsSystems";
+import Settings from "./pages/User/Features/Settings";
 
 const App = () => {
   return (
@@ -32,7 +33,7 @@ const App = () => {
         <Route path="alerts" element={<div>Alerts Page</div>} />
         <Route path="messages" element={<div>Messages Page</div>} />
         <Route path="notifications" element={<div>Notifications Page</div>} />
-        <Route path="settings" element={<div>Settings Page</div>} />
+        <Route path="settings" element={<Settings />} />
         <Route path="lost-found" element={<LostAndFound />} />
         <Route path="insurance" element={<TravelInsuranceHelper />} />
         <Route path="guidelines" element={<StateWiseGuidelines />} />

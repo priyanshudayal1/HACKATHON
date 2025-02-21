@@ -4,8 +4,9 @@ const API_URL = 'http://localhost:8000';
 
 export const getTransportRoutes = async (data) => {
   try {
-    const response = await axios.post(`${API_URL}/get-transport-routes/`, data);
-    return response.data;
+    const response = await axios.post(`${API_URL}/api/transport-routes/`, data);
+    console.log(response.data.routes);
+    return response.data.routes;
   } catch (error) {
     throw error.response.data;
   }

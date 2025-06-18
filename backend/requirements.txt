@@ -2,3 +2,4 @@ django
 django-cors-headers
 requests
 feedparser
+python-dotenv

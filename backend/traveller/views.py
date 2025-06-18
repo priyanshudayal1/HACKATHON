@@ -125,12 +125,25 @@ def generate_trip(request):
             - Preferred activities: {data['activity']}
             - Include local food recommendations
             - Optimize the daily schedule for efficiency
-            - Include estimated costs for each day"""
+            - Include estimated costs for each day"""            
             response = callGPT(system_prompt, user_prompt)
+            
+            # Make sure the response is properly serialized as JSON
+            # If response is already parsed as a Python object (list/dict), use it directly
+            if isinstance(response, (list, dict)):
+                trip_plan_data = response
+            else:
+                # If it's a string, try to parse it as JSON
+                try:
+                    trip_plan_data = json.loads(response)
+                except json.JSONDecodeError:
+                    # If it fails, send the raw response
+                    trip_plan_data = response
+            
             return JsonResponse({
                 'status': 'success',
-                'trip_plan': response
-            })
+                'trip_plan': trip_plan_data
+            }, safe=False)
             
         except Exception as e:
             return JsonResponse({

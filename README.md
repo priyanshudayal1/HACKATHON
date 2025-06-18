@@ -21,4 +21,4 @@ This project is a comprehensive travel companion application that includes featu
 - Travel Insurance Helper
 - Travel Suggestions
 
-The application consists of a Django backend and a React frontend.
+The application consists of a Django backend and a React frontend

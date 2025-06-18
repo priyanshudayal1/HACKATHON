@@ -26,3 +26,5 @@ The application consists of a Django backend and a React frontend. It is designe
 ## CODED BY
 - Anubhav Choubey
 - Priyanshu Dayal
+
+DONE
